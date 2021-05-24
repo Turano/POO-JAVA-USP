@@ -3,7 +3,7 @@ public class Dado {
 
 	private int numeroDeLados;
 	private int lado;
-	private Random randomNumberGenerator = new Random();
+	private static Random randomNumberGenerator = new Random();
 	
 	public Dado() {
 		numeroDeLados = 6;
@@ -21,7 +21,8 @@ public class Dado {
 		lado = randomNumberGenerator.getIntRand(numeroDeLados) + 1;
 		return lado;
 	}
-@Override
+	
+	@Override
 	public String toString() {
 		String resultado = "";
 		switch (lado) {
