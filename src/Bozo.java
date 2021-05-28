@@ -9,23 +9,9 @@ public class Bozo {
 		}		
 		System.out.println(dados1);
 		
-		boolean[] quais = new boolean[] {true, false, true, false, false};
-		lados = dados1.rolar(quais);
-		for (int i = 0; i < lados.length; i++) {
-			System.out.println(lados[i]);
-		}		
-		System.out.println(dados1);
-		
-		lados = dados1.rolar("1 4 5");
-		for (int i = 0; i < lados.length; i++) {
-			System.out.println(lados[i]);
-		}		
-		System.out.println(dados1);
-		
-		lados = dados1.rolar("1 4 6");
-		for (int i = 0; i < lados.length; i++) {
-			System.out.println(lados[i]);
-		}		
-		System.out.println(dados1);
+		Placar placar = new Placar();
+		System.out.println(placar);
+		placar.add(3, lados);
+		System.out.println(placar);
 	}
 }
