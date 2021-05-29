@@ -13,8 +13,7 @@ public class Placar {
 		posicaoEstaOcupada = new boolean[numberOfPositions];
 	}
 	
-	public void add(int posicao, int[] dados) 
-			throws java.lang.IllegalArgumentException {
+	public void add(int posicao, int[] dados) throws java.lang.IllegalArgumentException {
 		if(!ehUmaPosicaoValida(posicao) || posicaoEstaOcupada[posicao-1]) {
 			throw new IllegalArgumentException();
 		}else if (ehUmaJogadaSimples(posicao)){			
@@ -61,12 +60,12 @@ public class Placar {
 	}
 	
 	private boolean ehUmaSequencia1a5(int[] dados) {
-		int[] contaDados = new int[6];
+		int[] contaDados = contaDadosNaJogada(dados);
 		return !faltaElementoNaSequencia(contaDados, 0, contaDados.length - 1);
 	}
 	
 	private boolean ehUmaSequencia2a6(int[] dados) {
-		int[] contaDados = new int[6];
+		int[] contaDados = contaDadosNaJogada(dados);
 		return !faltaElementoNaSequencia(contaDados, 1, contaDados.length);
 	}
 	
