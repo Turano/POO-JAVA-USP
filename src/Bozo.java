@@ -1,42 +1,101 @@
-import java.io.IOException;
 
 public class Bozo {
 	public static void main(String[] args) {
-		
-		Placar placarCorreto1 = new Placar();
-		Placar placarCorreto2 = new Placar();
-		Placar placarErrado = new Placar();
-		
-		int[] dados = new int[] {2, 2, 3, 3, 3};
-		placarCorreto1.add(7, dados);
-		dados = new int[] {2, 3, 2, 3, 3};
-		placarCorreto2.add(7, dados);
-		dados = new int[] {1, 1, 1, 1, 1};
-		placarErrado.add(7, dados);
-		
-		dados = new int[] {1, 2, 3, 4, 5};
-		placarCorreto1.add(8, dados);
-		dados = new int[] {2, 3, 4, 5, 6};
-		placarCorreto2.add(8, dados);
-		dados = new int[] {2, 3, 4, 5, 5};
-		placarErrado.add(8, dados);
-		
-		dados = new int[] {1, 1, 1, 4, 1};
-		placarCorreto1.add(9, dados);
-		dados = new int[] {1, 1, 3, 1, 1};
-		placarCorreto2.add(9, dados);
-		dados = new int[] {3, 3, 3, 5, 5};
-		placarErrado.add(9, dados);
-		
-	
-		dados = new int[] {1, 1, 1, 1, 1};
-		placarCorreto1.add(10, dados);
-		dados = new int[] {3, 3, 3, 5, 5};
-		placarErrado.add(10, dados);
-		
-		
-		System.out.println(placarCorreto1);
-		System.out.println(placarCorreto2);
-		System.out.println(placarErrado);			
+		RolaDados rolaDados = new RolaDados(5);
+		Placar placar = new Placar();
+		String entradaUsuario;
+		for (int i = 0; i < 10; i++) {
+			System.out.println("Pressione ENTER para iniciar a rodada.");
+			lerEnter();		
+			int[] dados;
+			dados = rolaDados.rolar();
+			System.out.println(rolaDados);
+			
+			System.out.println("Quais dados gostaria de rolar novamente?");
+			entradaUsuario = leDados();
+			if(deveJogar(entradaUsuario)) {
+				dados = rolaDados.rolar(entradaUsuario);				
+			}
+			System.out.println(rolaDados);
+			
+			System.out.println("Quais dados gostaria de rolar novamente?");
+			entradaUsuario = leDados();
+			if(deveJogar(entradaUsuario)) {
+				dados = rolaDados.rolar(entradaUsuario);				
+			}
+			System.out.println(rolaDados);
+			
+			System.out.println(placar);
+			
+			System.out.println("Insira a posição do placar que gostaria de ocupar.");
+			int posicao = 0;
+			boolean leuUmInputAdequado = false;
+			while(!leuUmInputAdequado) {
+				leuUmInputAdequado = true;									
+				try {
+					posicao = lePosicao();					
+					placar.add(posicao, dados);
+				} catch (Exception e) {
+					System.out.println("Posição inválida ou já ocupada, tente novamente.");
+					leuUmInputAdequado=false;
+				}
+			}
+			System.out.println(placar);
+		}
+			
+		System.out.println("Pontuação final:");
+		System.out.println(placar.getScore());	
 	}
+	
+	public static void lerEnter() {
+		String entradaUsuario;
+		boolean leuUmInputAdequado = false;
+		while(!leuUmInputAdequado) {
+			try {
+				entradaUsuario = EntradaTeclado.leString();
+				if (entradaUsuario.equals("")) {
+					leuUmInputAdequado = true;						
+				}else {
+					System.out.println("");
+				}
+			} catch (Exception e) {
+				System.out.println("Entrada inválida, tente novamente.");
+			}
+		}
+	}
+	
+	public static String leDados() {
+		String entradaUsuario = "";
+		boolean leuUmInputAdequado = false;
+		while(!leuUmInputAdequado) {
+			leuUmInputAdequado = true;									
+			try {
+				entradaUsuario = EntradaTeclado.leString();
+			} catch (Exception e) {
+				System.out.println("Entre valores válidos.");
+				leuUmInputAdequado = false;
+			}
+		}
+		return entradaUsuario;
+	}
+	
+	public static boolean deveJogar(String dadosEscolhidos) {
+		return !dadosEscolhidos.equals("");
+	}
+	
+	public static int lePosicao() {
+		int entradaUsuario = 0;
+		boolean leuUmInputAdequado = false;
+		while(!leuUmInputAdequado) {
+			leuUmInputAdequado = true;									
+			try {
+				entradaUsuario = EntradaTeclado.leInt();
+			} catch (Exception e) {
+				System.out.println("Entre valores válidos (de 1 até 10).");
+				leuUmInputAdequado = false;
+			}
+		}
+		return entradaUsuario;
+	}
+	
 }
