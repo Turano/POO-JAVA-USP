@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,14 +8,14 @@ public class Agenda {
 	private Contato[] listaDeContatos;
 	private int numeroDeContatos;
 	private int numeroDeCpfs;
-	private int numeroDeCpnjs;
+	private int numeroDeCnpjs;
 	
 	public Agenda() {
 		this.capacidade = 100;
 		this.listaDeContatos = new Contato[this.capacidade];
 		this.numeroDeContatos = 0;
 		this.numeroDeCpfs = 0;
-		this.numeroDeCpnjs = 0;
+		this.numeroDeCnpjs = 0;
 	}
 	
 	public Agenda(int capacidade) {
@@ -22,7 +23,7 @@ public class Agenda {
 		this.listaDeContatos = new Contato[this.capacidade];
 		this.numeroDeContatos = 0;
 		this.numeroDeCpfs = 0;
-		this.numeroDeCpnjs = 0;
+		this.numeroDeCnpjs = 0;
 	}
 	
 	public boolean adicionarContato(Contato novoContato) {
@@ -31,7 +32,7 @@ public class Agenda {
 			if (novoContato instanceof PessoaFisica) {
 				this.numeroDeCpfs++;
 			}else if (novoContato instanceof PessoaJuridica) {
-				this.numeroDeCpnjs++;
+				this.numeroDeCnpjs++;
 			}
 			return true;
 		} else {
@@ -139,7 +140,7 @@ public class Agenda {
 				if(this.listaDeContatos[posicao] instanceof PessoaFisica) {
 					this.numeroDeCpfs--;
 				}else if (this.listaDeContatos[posicao] instanceof PessoaJuridica) {
-					this.numeroDeCpnjs--;
+					this.numeroDeCnpjs--;
 				}
 				this.listaDeContatos[posicao] = null;
 				this.numeroDeContatos--;
@@ -168,7 +169,7 @@ public class Agenda {
 			if(posicao >= 0) {
 				listaDeContatos[posicao] = null;
 				this.numeroDeContatos--;
-				this.numeroDeCpnjs--;
+				this.numeroDeCnpjs--;
 				return true;
 			}
 		}
@@ -177,6 +178,88 @@ public class Agenda {
 	
 	private boolean listaEstaVazia() {
 		return (this.numeroDeContatos == 0);
+	}
+
+	public void ordenar() {
+		PessoaFisica[] cpfsOrdenados = this.ordenarPorCpf();
+		PessoaJuridica[] cnpjsOrdenados = this.ordenarPorCnpj();
+		for (int i = 0; i < this.listaDeContatos.length; i++) {
+			if(i < this.numeroDeCpfs) {
+				this.listaDeContatos[i] = cpfsOrdenados[i];
+			}else if (i < this.numeroDeCpfs + this.numeroDeCnpjs ){
+				this.listaDeContatos[i] = cnpjsOrdenados[i-this.numeroDeCpfs];
+			}else {
+				this.listaDeContatos[i] = null;
+			}
+		}
+	}
+	
+	private PessoaFisica[] ordenarPorCpf() {
+		PessoaFisica[] cpfsOrdenados = obterCpfsDaLista();
+		for (int i = 0; i < cpfsOrdenados.length; i++) {
+			for (int j = 0; j < cpfsOrdenados.length-1; j++) {
+				String cpfSemPontuacao1 = cpfsOrdenados[j].getCpf().replace(".", "").replace("-", "");
+				long cpf1 = Long.parseLong(cpfSemPontuacao1);
+				
+				String cpfSemPontuacao2 = cpfsOrdenados[j+1].getCpf().replace(".", "").replace("-", "");
+				long cpf2 = Long.parseLong(cpfSemPontuacao2);
+				
+				if(cpf1 > cpf2) {
+					swap(cpfsOrdenados, j, j+1);
+				}
+			}
+		}
+		return cpfsOrdenados;
+	}
+	
+	private PessoaJuridica[] ordenarPorCnpj() {
+		PessoaJuridica[] cnpjsOrdenados = obterCnpjsDaLista();
+		for (int i = 0; i < cnpjsOrdenados.length; i++) {
+			for (int j = 0; j < cnpjsOrdenados.length-1; j++) {
+				String cnpjSemPontuacao1 = cnpjsOrdenados[j].getCnpj().replace(".", "").replace("-", "").replace("/", "");
+				long cnpj1 = Long.parseLong(cnpjSemPontuacao1);
+				
+				String cnpjSemPontuacao2 = cnpjsOrdenados[j+1].getCnpj().replace(".", "").replace("-", "").replace("/", "");
+				long cnpj2 = Long.parseLong(cnpjSemPontuacao2);
+				
+				if(cnpj1 > cnpj2) {
+					swap(cnpjsOrdenados, j, j+1);
+				}
+			}
+		}
+		return cnpjsOrdenados;
+	}
+	
+	private PessoaFisica[] obterCpfsDaLista() {
+		PessoaFisica[] cpfs = new PessoaFisica[this.numeroDeCpfs];
+		int i;
+		int j = 0;
+		for (i = 0; i < this.listaDeContatos.length; i++) {
+			if(this.listaDeContatos[i] instanceof PessoaFisica) {
+				PessoaFisica pf = (PessoaFisica) this.listaDeContatos[i];
+				cpfs[j++] = pf;
+			}
+		}
+		return cpfs;
+	}
+	
+	private PessoaJuridica[] obterCnpjsDaLista() {
+		PessoaJuridica[] cnpjs = new PessoaJuridica[this.numeroDeCnpjs];
+		int i;
+		int j = 0;
+		for (i = 0; i < this.listaDeContatos.length; i++) {
+			if(this.listaDeContatos[i] instanceof PessoaJuridica) {
+				PessoaJuridica pj = (PessoaJuridica) this.listaDeContatos[i];
+				cnpjs[j++] = pj;
+			}
+		}
+		return cnpjs;
+	}
+	
+	private void swap(Contato[] lista, int posicao1, int posicao2) {
+		Contato temporario = lista[posicao1];
+		lista[posicao1] = lista[posicao2];
+		lista[posicao2] = temporario;
 	}
 	
 	@Override

@@ -54,5 +54,9 @@ public class Testes {
 		if(agendaDeContatos.buscar("Andre") == null) {
 			System.out.println("Contato inexistente !!");
 		}
+		
+		agendaDeContatos.ordenar();
+		System.out.println("--------------------------ORDENADA--------------------------");
+		System.out.println(agendaDeContatos);
 	}
 }
