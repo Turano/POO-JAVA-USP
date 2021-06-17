@@ -46,5 +46,13 @@ public class Testes {
 			System.out.println("ACHADA!");
 			System.out.println(pjBuscadaPorCnpj );			
 		}
+		
+		if(agendaDeContatos.remover("Andre")) {
+			System.out.println("Contato removido com sucesso!!");
+		}
+		
+		if(agendaDeContatos.buscar("Andre") == null) {
+			System.out.println("Contato inexistente !!");
+		}
 	}
 }

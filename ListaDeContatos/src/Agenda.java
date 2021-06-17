@@ -77,7 +77,7 @@ public class Agenda {
 	
 	private int buscaPosicaoPorNome(String nome) {
 		for (int i = 0; i < this.numeroDeContatos; i++) {
-			if(listaDeContatos[i].getNome().equals(nome)) {
+			if(listaDeContatos[i] != null && listaDeContatos[i].getNome().equals(nome)) {
 				return i;
 			}			
 		}
@@ -95,7 +95,7 @@ public class Agenda {
 	
 	private int buscaPosicaoPorCpf(String cpf) {
 		for (int i = 0; i < this.numeroDeContatos; i++) {
-			if(listaDeContatos[i] instanceof PessoaFisica && ((PessoaFisica) listaDeContatos[i]).getCpf().equals(cpf)) {
+			if(listaDeContatos[i] != null && listaDeContatos[i] instanceof PessoaFisica && ((PessoaFisica) listaDeContatos[i]).getCpf().equals(cpf)) {
 				return i;				
 			}
 		}
@@ -113,7 +113,7 @@ public class Agenda {
 	
 	private int buscaPosicaoPorCnpj(String cnpj) {
 		for (int i = 0; i < this.numeroDeContatos; i++) {
-			if(listaDeContatos[i] instanceof PessoaJuridica && ((PessoaJuridica) listaDeContatos[i]).getCnpj().equals(cnpj)) {
+			if(listaDeContatos[i] != null && listaDeContatos[i] instanceof PessoaJuridica && ((PessoaJuridica) listaDeContatos[i]).getCnpj().equals(cnpj)) {
 				return i;				
 			}
 		}
@@ -136,7 +136,12 @@ public class Agenda {
 		if(!this.listaEstaVazia()) {
 			int posicao = buscaPosicaoPorNome(nome);
 			if(posicao >= 0) {
-				listaDeContatos[posicao] = null;
+				if(this.listaDeContatos[posicao] instanceof PessoaFisica) {
+					this.numeroDeCpfs--;
+				}else if (this.listaDeContatos[posicao] instanceof PessoaJuridica) {
+					this.numeroDeCpnjs--;
+				}
+				this.listaDeContatos[posicao] = null;
 				this.numeroDeContatos--;
 				return true;
 			}			
@@ -150,6 +155,7 @@ public class Agenda {
 			if(posicao >= 0) {
 				listaDeContatos[posicao] = null;
 				this.numeroDeContatos--;
+				this.numeroDeCpfs--;
 				return true;
 			}
 		}
@@ -162,6 +168,7 @@ public class Agenda {
 			if(posicao >= 0) {
 				listaDeContatos[posicao] = null;
 				this.numeroDeContatos--;
+				this.numeroDeCpnjs--;
 				return true;
 			}
 		}
