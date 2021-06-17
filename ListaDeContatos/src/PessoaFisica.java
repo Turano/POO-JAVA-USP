@@ -32,7 +32,7 @@ public class PessoaFisica extends Contato{
 		} 
 		this.cpf = cpf;						
 	}
-	
+		
 	public String getData() {
 		return dataDeNascimento;
 	}
@@ -110,6 +110,18 @@ public class PessoaFisica extends Contato{
         	System.out.println("CPF Inserido de maneira inadequada");
             return(false);
         }
+	}
+
+
+	@Override
+	public String toString() {
+		String pessoaFisica = "";
+		pessoaFisica = super.toString();
+		pessoaFisica += "Cpf: " + this.getCpf() + "\n";
+		pessoaFisica += "Nascido: " + this.getData() + "\n";
+		pessoaFisica += "Estado Civil: " + this.getEstadoCivil() + "\n";
+		
+		return pessoaFisica;
 	}
 	
 }

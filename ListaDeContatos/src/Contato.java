@@ -33,4 +33,13 @@ public class Contato {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+	
+	@Override
+	public String toString() {
+		String contato = "";
+		contato += "Nome: " + this.getNome() + "\n";
+		contato += "Email: " + this.getEmail() + "\n";
+		contato += "Endereço: " + this.getEndereco() + "\n";
+		return contato;
+	}
 }

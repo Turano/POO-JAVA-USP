@@ -109,4 +109,15 @@ private boolean isValidCnpj(String cnpj) {
             return(false);
         }
 	}
+
+	@Override
+	public String toString() {
+		String pessoaJuridica = "";
+		pessoaJuridica += super.toString();
+		pessoaJuridica += "Cnpj: " + this.getCnpj() + "\n";
+		pessoaJuridica += "Razão Social: " + this.getRazaoSocial() + "\n";
+		pessoaJuridica += "Inscrição Estadual: " + this.getInscricaoEstadual() + "\n";
+		
+		return pessoaJuridica;
+	}
 }
