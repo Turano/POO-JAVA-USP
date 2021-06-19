@@ -3,15 +3,18 @@ public class Loja {
 	private Produto[] produtos;
 	private int capacidade;
 	private int quantidadeDeProdutos;
+	private Estoque estoque;
 	
 	public Loja() {
 		this.capacidade = 100;
 		this.produtos = new Produto[this.capacidade];
+		this.estoque = new Estoque();
 	}
 	
 	public Loja(int capacidade) {
 		this.capacidade = capacidade;
 		this.produtos = new Produto[this.capacidade];
+		this.estoque = new Estoque();
 	}
 
 	public Produto[] getProdutos() {
@@ -31,23 +34,27 @@ public class Loja {
 			int posicao = this.buscarPosicaoPorNome(produto.getNome());
 			if(posicao > 0) {
 				this.produtos[posicao].increaseAvailableQuantity(produto.getAvailableQuantity());
+				estoque.adicionarAoEstoque(produto, produto.getAvailableQuantity());
 			}else {
-				this.produtos[this.quantidadeDeProdutos++] = produto;				
+				this.produtos[this.quantidadeDeProdutos++] = produto;	
+				estoque.adicionarAoEstoque(produto, produto.getAvailableQuantity());
 			}
 			return true;
 		}
 		return false;
 	}
 	
-	public boolean adicionarProdutos(Produto[] produtos) {
+	public boolean adicionarProdutos(Produto[] produtosNovos) {
 		if(this.quantidadeDeProdutos < capacidade) {
 			int i = 0;
-			while (this.quantidadeDeProdutos < capacidade && i < produtos.length) {
-				int posicao = this.buscarPosicaoPorNome(produtos[i].getNome());
+			while (this.quantidadeDeProdutos < capacidade && i < produtosNovos.length) {
+				int posicao = this.buscarPosicaoPorNome(produtosNovos[i].getNome());
 				if(posicao > 0) {
-					this.produtos[posicao].increaseAvailableQuantity(produtos[i].getAvailableQuantity());
+					this.produtos[posicao].increaseAvailableQuantity(produtosNovos[i].getAvailableQuantity());
+					estoque.adicionarAoEstoque(produtosNovos[i], produtosNovos[i].getAvailableQuantity());
 				}else {
-					this.produtos[this.quantidadeDeProdutos++] = produtos[i];			
+					this.produtos[this.quantidadeDeProdutos++] = produtosNovos[i];		
+					estoque.adicionarAoEstoque(produtosNovos[i], produtosNovos[i].getAvailableQuantity());
 				}
 				i++;
 			}
@@ -86,6 +93,7 @@ public class Loja {
 		int posicao = buscarPosicaoPorCodigo(codigoDeBarras);
 		if(posicao < 0) return false;
 		if (this.produtos[posicao].decreaseAvailableQuantity()) {
+			estoque.removerDoEstoque(this.produtos[posicao], 1);
 			if(this.produtos[posicao].getAvailableQuantity() == 0) {
 				this.produtos[posicao] = null;				
 			}
@@ -97,12 +105,42 @@ public class Loja {
 	public boolean vender(int codigoDeBarras, int amount) {
 		int posicao = buscarPosicaoPorCodigo(codigoDeBarras);
 		if (this.produtos[posicao].decreaseAvailableQuantity(amount)) {
+			estoque.removerDoEstoque(this.produtos[posicao], amount);
 			if(this.produtos[posicao].getAvailableQuantity() == 0) {
 				this.produtos[posicao] = null;				
 			}
 			return true;
 		}
 		return false;
+	}
+	
+	public String obterEstoque() {
+		String resultado = "";
+		resultado += 
+				"Livros:" + "\n"
+				+"Dísponiveis: " + estoque.getQuantidaeDeLivros() + "\n";
+		for(Produto produto : produtos) {
+			if (produto instanceof Livro) {
+				resultado += produto;
+			}
+		}
+		resultado += "\n" + 
+				"CDs:" + "\n"
+				+"Dísponiveis: " + estoque.getQuantidadeDeCds() + "\n";
+		for(Produto produto : produtos) {
+			if (produto instanceof CD) {
+				resultado += produto;
+			}
+		}
+		resultado += "\n" + 
+				"DVDs:" + "\n"
+				+"Dísponiveis: " + estoque.getQuantidadeDeDvds() + "\n";
+		for(Produto produto : produtos) {
+			if (produto instanceof Dvd) {
+				resultado += produto;
+			}
+		}
+		return resultado;
 	}
 	
 	@Override

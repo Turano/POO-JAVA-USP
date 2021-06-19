@@ -13,7 +13,7 @@ public class Testes {
 		Loja loja = new Loja();
 		loja.adicionarProdutos(produtos);
 		System.out.println("---------------------LOJA---------------------");
-		System.out.println(loja);
+		System.out.println(loja.obterEstoque());
 		
 		System.out.println("---------------------BUSCAS---------------------");
 		System.out.println("Produto achado pelo nome:");
@@ -33,6 +33,6 @@ public class Testes {
 		}
 		
 		System.out.println("---------------------RESULTADO FINAL---------------------");
-		System.out.println(loja);
+		System.out.println(loja.obterEstoque());
 	}
 }
