@@ -1,4 +1,4 @@
-import java.util.Collections;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -113,7 +113,7 @@ public class Agenda {
 	}
 	
 	private int buscaPosicaoPorCnpj(String cnpj) {
-		for (int i = 0; i < this.numeroDeContatos; i++) {
+		for (int i = 0; i < this.capacidade; i++) {
 			if(listaDeContatos[i] != null && listaDeContatos[i] instanceof PessoaJuridica && ((PessoaJuridica) listaDeContatos[i]).getCnpj().equals(cnpj)) {
 				return i;				
 			}
@@ -183,7 +183,7 @@ public class Agenda {
 	public void ordenar() {
 		PessoaFisica[] cpfsOrdenados = this.ordenarPorCpf();
 		PessoaJuridica[] cnpjsOrdenados = this.ordenarPorCnpj();
-		for (int i = 0; i < this.listaDeContatos.length; i++) {
+		for (int i = 0; i < this.capacidade; i++) {
 			if(i < this.numeroDeCpfs) {
 				this.listaDeContatos[i] = cpfsOrdenados[i];
 			}else if (i < this.numeroDeCpfs + this.numeroDeCnpjs ){
@@ -234,7 +234,7 @@ public class Agenda {
 		PessoaFisica[] cpfs = new PessoaFisica[this.numeroDeCpfs];
 		int i;
 		int j = 0;
-		for (i = 0; i < this.listaDeContatos.length; i++) {
+		for (i = 0; i < this.capacidade; i++) {
 			if(this.listaDeContatos[i] instanceof PessoaFisica) {
 				PessoaFisica pf = (PessoaFisica) this.listaDeContatos[i];
 				cpfs[j++] = pf;
@@ -247,7 +247,7 @@ public class Agenda {
 		PessoaJuridica[] cnpjs = new PessoaJuridica[this.numeroDeCnpjs];
 		int i;
 		int j = 0;
-		for (i = 0; i < this.listaDeContatos.length; i++) {
+		for (i = 0; i < this.capacidade; i++) {
 			if(this.listaDeContatos[i] instanceof PessoaJuridica) {
 				PessoaJuridica pj = (PessoaJuridica) this.listaDeContatos[i];
 				cnpjs[j++] = pj;

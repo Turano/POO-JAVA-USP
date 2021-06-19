@@ -25,38 +25,54 @@ public class Testes {
 		System.out.println(agendaDeContatos);
 		PessoaFisica pfBuscadaPorNome = (PessoaFisica)agendaDeContatos.buscar("Jorge");
 		if(pfBuscadaPorNome != null) {
-			System.out.println("ACHADA!");
+			System.out.println("Pessoa buscada pelo nome: \"Jorge\"");
 			System.out.println(pfBuscadaPorNome );			
 		}
 		
 		PessoaFisica pfBuscadaPorCpf = (PessoaFisica)agendaDeContatos.buscar("712.499.720-86");
 		if(pfBuscadaPorNome != null) {
-			System.out.println("ACHADA!");
+			System.out.println("Pessoa buscada pelo cpf: 712.499.720-86");
 			System.out.println(pfBuscadaPorCpf );			
 		}
 		
 		PessoaJuridica pjBuscadaPorNome = (PessoaJuridica) agendaDeContatos.buscar("ICMC Júnior");
 		if(pjBuscadaPorNome != null) {
-			System.out.println("ACHADA!");
+			System.out.println("Empresa buscada pelo nome: \"ICMC Júnior\" ");
 			System.out.println(pjBuscadaPorNome );			
 		}
 		
 		PessoaJuridica pjBuscadaPorCnpj = (PessoaJuridica)agendaDeContatos.buscar("12.932.235/0001-09");
 		if(pjBuscadaPorCnpj != null) {
-			System.out.println("ACHADA!");
+			System.out.println("Empresa buscada pelo cnpj:  12.932.235/0001-09");
 			System.out.println(pjBuscadaPorCnpj );			
-		}
-		
-		if(agendaDeContatos.remover("Andre")) {
-			System.out.println("Contato removido com sucesso!!");
-		}
-		
-		if(agendaDeContatos.buscar("Andre") == null) {
-			System.out.println("Contato inexistente !!");
 		}
 		
 		agendaDeContatos.ordenar();
 		System.out.println("--------------------------ORDENADA--------------------------");
 		System.out.println(agendaDeContatos);
+		
+		if(agendaDeContatos.remover("Andre")) {
+			System.out.println("Contato \"Andre\" removido pelo nome com sucesso!!");
+		}
+		if(agendaDeContatos.buscar("Andre") == null) {
+			System.out.println("Pós busca: Contato \"Andre\" inexistente !!");
+		}
+		
+		if(agendaDeContatos.remover("965.305.460-06")) {
+			System.out.println("Contato 965.305.460-06 removido pelo cpf com sucesso!!");
+		}
+		
+		if(agendaDeContatos.buscar("965.305.460-06") == null) {
+			System.out.println("Pós busca: Contato 965.305.460-06 inexistente !!");
+		}
+		
+		if(agendaDeContatos.remover("66.607.632/0001-26")) {
+			System.out.println("Contato 66.607.632/0001-26 removido pelo cnpj com sucesso!!");
+		}
+		
+		if(agendaDeContatos.buscar("66.607.632/0001-26") == null) {
+			System.out.println("Pós busca: Contato 66.607.632/0001-26 inexistente !!");
+		}
+		
 	}
 }
