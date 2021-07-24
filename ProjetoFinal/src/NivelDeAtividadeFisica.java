@@ -1,5 +1,6 @@
 
 public enum NivelDeAtividadeFisica {
+	
 	LEVE(new double[] {1.55, 1.56}), 
 	MODERADA(new double[] {1.78, 1.64}),
 	INTENSA(new double[] {2.10, 1.82});

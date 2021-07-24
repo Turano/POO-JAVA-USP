@@ -4,48 +4,30 @@ public abstract class Individuo {
 	protected double altura;
 	protected int idade;
 	
-	protected NivelDeAtividadeFisica nivelDeAtivFis;
+	protected NivelDeAtividadeFisica nivelDeAtividadeFisica;
 	
-	public Individuo(double peso, double altura, int idade, NivelDeAtividadeFisica nivelDeAtivFis) {
+	public Individuo(double peso, double altura, int idade, NivelDeAtividadeFisica nivelDeAtividadeFisica) {
 		super();
 		this.peso = peso;
 		this.altura = altura;
 		this.idade = idade;
-		this.nivelDeAtivFis = nivelDeAtivFis;
+		this.nivelDeAtividadeFisica = nivelDeAtividadeFisica;
 	}
-
-	abstract double getNDC();
 
 	public double getPeso() {
 		return peso;
-	}
-
-	public void setPeso(double peso) {
-		this.peso = peso;
 	}
 
 	public double getAltura() {
 		return altura;
 	}
 
-	public void setAltura(double altura) {
-		this.altura = altura;
-	}
-
 	public int getIdade() {
 		return idade;
 	}
 
-	public void setIdade(int idade) {
-		this.idade = idade;
-	}
-
-	public NivelDeAtividadeFisica getNivelDeAtivFis() {
-		return nivelDeAtivFis;
-	}
-
-	public void setNivelDeAtivFis(NivelDeAtividadeFisica nivelDeAtivFis) {
-		this.nivelDeAtivFis = nivelDeAtivFis;
+	public NivelDeAtividadeFisica getNivelDeAtividadeFisica() {
+		return nivelDeAtividadeFisica;
 	}
 	
 	//	Indice de massa corporea
@@ -53,4 +35,5 @@ public abstract class Individuo {
 	// 	Taxa Metabolica Basal
 	abstract double getTMB();
 	//	Necessidade Diaria de Calorias
+	abstract double getNDC();
 }

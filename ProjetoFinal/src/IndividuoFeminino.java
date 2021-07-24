@@ -1,27 +1,26 @@
 
 public class IndividuoFeminino extends Individuo {
 
+	CalculadoraIMC calculadoraIMC = new CalculadoraIMC();
+	CalculadoraMetabolica calculadoraMetabolica = new CalculadoraMetabolica();
+	
 	public IndividuoFeminino(double peso, double altura, int idade, NivelDeAtividadeFisica nivelDeAtivFis) {
 		super(peso, altura, idade, nivelDeAtivFis);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	double getIMC() {
-		// TODO Auto-generated method stub
-		return 0;
+		return calculadoraIMC.getIMC(this);
 	}
 
 	@Override
 	double getTMB() {
-		// TODO Auto-generated method stub
-		return 0;
+		return calculadoraMetabolica.getTMB(this);
 	}
 
 	@Override
 	double getNDC() {
-		// TODO Auto-generated method stub
-		return 0;
+		return calculadoraMetabolica.getNDC(this);
 	}
 
 }
