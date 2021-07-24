@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -35,7 +36,7 @@ public class Layout extends JFrame implements ActionListener, MainTitle, Cadastr
 		topPanel = new JPanel(new FlowLayout());
 		contentPanel = new JPanel(new GridLayout(1, 2));
 
-		esqPanel = new JPanel(new GridLayout(4, 1));
+		esqPanel = new JPanel(new GridLayout(5, 1));
 		dirPanel = new JPanel(new GridLayout(1, 1));
 
 		pessoaInfoPanel = new JPanel(new GridLayout(3, 2));
@@ -47,7 +48,7 @@ public class Layout extends JFrame implements ActionListener, MainTitle, Cadastr
 		freqAtivFisicaPanel = new JPanel(new GridLayout(2, 1));
 
 		objetivoPanel = new JPanel(new GridLayout(5, 1));
-		buttonsPanel = new JPanel(new GridLayout(1, 2));
+		buttonsPanel = new JPanel(new FlowLayout());
 
 		//
 		panel.setBackground(Color.red);
@@ -90,9 +91,10 @@ public class Layout extends JFrame implements ActionListener, MainTitle, Cadastr
 		// panel
 		topPanel.add(label);
 
-		esqPanel.setBackground(Color.blue);
-		dirPanel.setBackground(Color.green);
-		topPanel.setBackground(Color.pink);
+//		esqPanel.setBackground(Color.blue);
+//		dirPanel.setBackground(Color.green);
+//		topPanel.setBackground(Color.pink);
+		esqPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
 		panel.add(topPanel);
 		panel.add(contentPanel);
 		contentPanel.add(esqPanel);
@@ -139,23 +141,28 @@ public class Layout extends JFrame implements ActionListener, MainTitle, Cadastr
 		objetivoPanel.add(radioButtonSaude);
 		esqPanel.add(objetivoPanel);
 
+		// cadastrarRefeicaoPanel
+		esqPanel.add(panelCadastrarRefeicao);
+		panelCadastrarRefeicao.add(panelTitulos);
+		panelCadastrarRefeicao.add(panelInputs);
+		panelCadastrarRefeicao.add(panelInputs1);
+		panelTitulos.add(labelAlimento);
+		panelTitulos.add(labelQuantidade);
+		panelInputs.add(inserirAlimento);
+		panelInputs.add(inserirQuantidade);
+		panelInputs1.add(inserirAlimento1);
+		panelInputs1.add(inserirQuantidade1);
+
 		// buttonsPanel
 		buttonsPanel.add(button);
 		buttonsPanel.add(button1);
-		dirPanel.add(buttonsPanel);
+		esqPanel.add(buttonsPanel);
 
 		button.addActionListener(this);
 		button.setActionCommand("confirma");
 		button1.addActionListener(this);
 		button1.setActionCommand("limpa");
 
-		esqPanel.add(panelCadastrarRefeicao);
-		panelCadastrarRefeicao.add(panelTitulos);
-		panelCadastrarRefeicao.add(panelInputs);
-		panelTitulos.add(labelAlimento);
-		panelTitulos.add(labelQuantidade);
-		panelInputs.add(inserirAlimento);
-		panelInputs.add(inserirQuantidade);
 	}
 
 	@Override
