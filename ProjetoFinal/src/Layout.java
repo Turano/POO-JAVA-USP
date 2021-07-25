@@ -14,12 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-public class Layout extends JFrame implements ActionListener, MainTitle, CadastrarRefeicao {
+public class Layout extends JFrame implements ActionListener, CadastrarRefeicao {
 
 	private int count = 0;
 	private JPanel panel, buttonsPanel, objetivoPanel, esqPanel, dirPanel, topPanel, contentPanel, pessoaInfoPanel,
 			nomePanel, idadePanel, alturaPanel, pesoPanel, sexoPanel, freqAtivFisicaPanel;
-//	private JLabel label;
+	private JLabel label;
 	private JLabel nomeLabel, objetivoLabel, idadeLabel, alturaLabel, pesoLabel, sexoLabel, freqAtivFisicaLabel;
 	private JTextField nomeField, idadeField, alturaField, pesoField;
 	private JRadioButton radioButtonEmagrecimento, radioButtonGanhoPeso, radioButtonGanhoMassaMuscular,
@@ -53,7 +53,7 @@ public class Layout extends JFrame implements ActionListener, MainTitle, Cadastr
 		//
 		panel.setBackground(Color.red);
 
-//		label = new JLabel("Bem vindo");
+		label = new JLabel("Bem vindo ao app do e-Saude");
 
 		nomeLabel = new JLabel("Digite seu nome:");
 		nomeField = new JTextField();
