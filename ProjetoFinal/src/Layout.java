@@ -27,6 +27,9 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 	private JButton button, button1;
 	private JComboBox<String> sexoDropDown, freqAtivFisicaDropDown;
 
+	private JPanel resultadosPanel, titlePanel, IMCPanel, consCalBasPanel, consCalDiarPanel, ingestaoPanel;
+	private JLabel resultadosTituloLabel;
+
 	public Layout() {
 		super("e-Saude");
 		panel = (JPanel) this.getContentPane();
@@ -46,14 +49,19 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		pesoPanel = new JPanel(new GridLayout(2, 1));
 		sexoPanel = new JPanel(new GridLayout(2, 1));
 		freqAtivFisicaPanel = new JPanel(new GridLayout(2, 1));
-
 		objetivoPanel = new JPanel(new GridLayout(5, 1));
 		buttonsPanel = new JPanel(new FlowLayout());
 
-		//
-		panel.setBackground(Color.red);
+		resultadosPanel = new JPanel(new GridLayout(5, 1));
+		titlePanel = new JPanel(new FlowLayout());
+		IMCPanel = new JPanel(new GridLayout(4, 1));
+		consCalBasPanel = new JPanel(new GridLayout(1, 2));
+		consCalDiarPanel = new JPanel(new GridLayout(3, 1));
+		ingestaoPanel = new JPanel(new GridLayout(2, 1));
 
 		label = new JLabel("Bem vindo ao app do e-Saude");
+
+		// ----------------- lado esquerdo ----------------------------------
 
 		nomeLabel = new JLabel("Digite seu nome:");
 		nomeField = new JTextField();
@@ -95,6 +103,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 //		dirPanel.setBackground(Color.green);
 //		topPanel.setBackground(Color.pink);
 		esqPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
+		dirPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
 		panel.add(topPanel);
 		panel.add(contentPanel);
 		contentPanel.add(esqPanel);
@@ -102,6 +111,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 		// pessoaInfoPanel
 		esqPanel.add(pessoaInfoPanel);
+		dirPanel.add(resultadosPanel);
 
 		// nomePanel
 		nomePanel.add(nomeLabel);
@@ -163,6 +173,31 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		button1.addActionListener(this);
 		button1.setActionCommand("limpa");
 
+		// ----------------- lado direito ----------------------------------
+
+		resultadosTituloLabel = new JLabel("Resultados");
+
+		dirPanel.add(resultadosPanel);
+
+		// titlePanel
+		resultadosPanel.add(resultadosTituloLabel);
+
+		// IMCPanel
+		IMCPanel.setBackground(Color.yellow);
+		resultadosPanel.add(IMCPanel);
+
+		// consCalBasPanel
+		consCalBasPanel.setBackground(Color.green);
+		resultadosPanel.add(consCalBasPanel);
+
+		// consCalDiarPanel
+		consCalDiarPanel.setBackground(Color.blue);
+		resultadosPanel.add(consCalDiarPanel);
+
+		// ingestaoPanel
+		ingestaoPanel.setBackground(Color.gray);
+		resultadosPanel.add(ingestaoPanel);
+
 	}
 
 	@Override
@@ -194,6 +229,34 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 		}
 
+		CalculadoraIMC calculadoraIMC = new CalculadoraIMC();
+		CalculadoraMetabolica calculadoraMetabolica = new CalculadoraMetabolica();
+
+//		IndividuoMasculino i1 = new IndividuoMasculino(72, 171, 21, NivelDeAtividadeFisica.MODERADA);
+//		IndividuoFeminino i2 = new IndividuoFeminino(72, 171, 21, NivelDeAtividadeFisica.MODERADA);
+
+		if ("confirma".equals(e.getActionCommand())) {
+			String pesoString = pesoField.getText();
+			String alturaString = alturaField.getText();
+			String idadeString = idadeField.getText();
+
+			double peso = Double.parseDouble(pesoString);
+			double altura = Double.parseDouble(alturaString);
+			int idade = Integer.parseInt(idadeString);
+
+			IndividuoMasculino indivMasc = new IndividuoMasculino(peso, altura, idade, NivelDeAtividadeFisica.MODERADA);
+			label.setText("Individuo de idade " + idade + " pesando " + peso + "kg, de altura " + altura
+					+ "cm tem IMC: " + calculadoraIMC.getIMC(indivMasc));
+
+		}
+
+//		System.out.println(calculadoraIMC.getIMC(i1));
+//		System.out.println(calculadoraIMC.getHealthCondition(i2));
+//		System.out.println(NivelDeAtividadeFisica.LEVE);
+//		System.out.println(NivelDeAtividadeFisica.LEVE.getFatorDeAtividade()[0]);
+//		System.out.println(NivelDeAtividadeFisica.LEVE.getFatorDeAtividade()[1]);
+//		System.out.println(calculadoraMetabolica.getTMB(i1));
+//		System.out.println(calculadoraMetabolica.getNDC(i2));
 	}
 
 }
