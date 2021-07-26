@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 public class Layout extends JFrame implements ActionListener, CadastrarRefeicao {
 
@@ -28,7 +29,9 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 	private JComboBox<String> sexoDropDown, freqAtivFisicaDropDown;
 
 	private JPanel resultadosPanel, titlePanel, IMCPanel, consCalBasPanel, consCalDiarPanel, ingestaoPanel;
-	private JLabel resultadosTituloLabel;
+	private JLabel resultadosTituloLabel, calcIMCTitleLabel, calcIMCTextLabel, consCalBasTitleLabel,
+			consCalBasTextLabel, consCalDiarTitleLabel, consCalDiarTextLabel, ingestaoTitleLabel, ingestaoTextLabel,
+			consumoTitleLabel, consumoTextLabel, consumoTextSmallLable;
 
 	public Layout() {
 		super("e-Saude");
@@ -57,7 +60,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		IMCPanel = new JPanel(new GridLayout(4, 1));
 		consCalBasPanel = new JPanel(new GridLayout(1, 2));
 		consCalDiarPanel = new JPanel(new GridLayout(3, 1));
-		ingestaoPanel = new JPanel(new GridLayout(2, 1));
+		ingestaoPanel = new JPanel(new GridLayout(3, 2));
 
 		label = new JLabel("Bem vindo ao app do e-Saude");
 
@@ -99,9 +102,6 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		// panel
 		topPanel.add(label);
 
-//		esqPanel.setBackground(Color.blue);
-//		dirPanel.setBackground(Color.green);
-//		topPanel.setBackground(Color.pink);
 		esqPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
 		dirPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
 		panel.add(topPanel);
@@ -175,27 +175,49 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 		// ----------------- lado direito ----------------------------------
 
+		dirPanel.setBorder(new LineBorder(Color.black, 3, true));
+
 		resultadosTituloLabel = new JLabel("Resultados");
 
-		dirPanel.add(resultadosPanel);
+		calcIMCTitleLabel = new JLabel("Calculadora IMC");
+		calcIMCTextLabel = new JLabel("Aqui ira aparecer o seu resultado!");
 
-		// titlePanel
-		resultadosPanel.add(resultadosTituloLabel);
+		consCalBasTitleLabel = new JLabel("Cálculo do seu consumo calórico basal:");
+		consCalBasTextLabel = new JLabel("___ Kcal");
 
-		// IMCPanel
-		IMCPanel.setBackground(Color.yellow);
+		consCalDiarTitleLabel = new JLabel("Cálculo do seu consumo calórico diário (basal + atividades físicas):");
+		consCalDiarTextLabel = new JLabel("___ Kcal");
+
+		ingestaoTitleLabel = new JLabel("META de ingestão de hoje:");
+		ingestaoTextLabel = new JLabel("___ Kcal");
+
+		consumoTitleLabel = new JLabel("Seu consumo hoje:");
+		consumoTextLabel = new JLabel("___ Kcal");
+		consumoTextSmallLable = new JLabel("Aqui aparecerá seu resultado!");
+
+		// titlePanel + IMCPanel
+		titlePanel.add(resultadosTituloLabel);
+		IMCPanel.add(titlePanel);
+		IMCPanel.add(calcIMCTitleLabel);
+		IMCPanel.add(calcIMCTextLabel);
 		resultadosPanel.add(IMCPanel);
 
 		// consCalBasPanel
-		consCalBasPanel.setBackground(Color.green);
+		consCalBasPanel.add(consCalBasTitleLabel);
+		consCalBasPanel.add(consCalBasTextLabel);
 		resultadosPanel.add(consCalBasPanel);
 
 		// consCalDiarPanel
-		consCalDiarPanel.setBackground(Color.blue);
+		consCalDiarPanel.add(consCalDiarTitleLabel);
+		consCalDiarPanel.add(consCalDiarTextLabel);
 		resultadosPanel.add(consCalDiarPanel);
 
 		// ingestaoPanel
-		ingestaoPanel.setBackground(Color.gray);
+		ingestaoPanel.add(ingestaoTitleLabel);
+		ingestaoPanel.add(ingestaoTextLabel);
+		ingestaoPanel.add(consumoTitleLabel);
+		ingestaoPanel.add(consumoTextLabel);
+		ingestaoPanel.add(consumoTextSmallLable);
 		resultadosPanel.add(ingestaoPanel);
 
 	}
@@ -245,7 +267,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 			int idade = Integer.parseInt(idadeString);
 
 			IndividuoMasculino indivMasc = new IndividuoMasculino(peso, altura, idade, NivelDeAtividadeFisica.MODERADA);
-			label.setText("Individuo de idade " + idade + " pesando " + peso + "kg, de altura " + altura
+			calcIMCTextLabel.setText("Individuo de idade " + idade + " pesando " + peso + "kg, de altura " + altura
 					+ "cm tem IMC: " + calculadoraIMC.getIMC(indivMasc));
 
 		}
