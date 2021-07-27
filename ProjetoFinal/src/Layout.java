@@ -262,21 +262,22 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 				IndividuoMasculino indivMasc = new IndividuoMasculino(peso, altura, idade, nivelAtivFis, objetivo);
 
-				calcIMCTextLabel.setText(nome + " de idade " + idade + " pesando " + peso + "kg, de altura " + altura
-						+ "cm tem IMC: " + String.format("%.2f", calculadoraIMC.getIMC(indivMasc)) + " -> "
-						+ calculadoraIMC.getHealthCondition(indivMasc));
+				calcIMCTextLabel.setText("Seu IMC é " + String.format("%.2f", calculadoraIMC.getIMC(indivMasc))
+						+ ", assim sendo classificado como " + calculadoraIMC.getHealthCondition(indivMasc));
 
-				calcIMCText2Label.setText("nivel Ativ Fisica: " + nivelAtivFis + " e objetivo: " + objetivo);
+				calcIMCText2Label.setText("Se tem o objetivo de atingir o peso normal da tabela, é necessario perder "
+						+ calculadoraIMC.getPesoParaSerPerdido(indivMasc) + " kg.");
 
 			} else if (sexo.equals("Feminino")) {
 
 				IndividuoFeminino indivFem = new IndividuoFeminino(peso, altura, idade, nivelAtivFis, objetivo);
 
-				calcIMCTextLabel.setText(nome + " de idade " + idade + " pesando " + peso + "kg, de altura " + altura
-						+ "cm tem IMC: " + String.format("%.2f", calculadoraIMC.getIMC(indivFem)) + " -> "
-						+ calculadoraIMC.getHealthCondition(indivFem));
+				calcIMCTextLabel.setText("Seu IMC é " + String.format("%.2f", calculadoraIMC.getIMC(indivFem))
+						+ ", assim sendo classificado como " + calculadoraIMC.getHealthCondition(indivFem));
 
-				calcIMCText2Label.setText("nivel Ativ Fisica: " + nivelAtivFis + " e objetivo: " + objetivo);
+				calcIMCText2Label.setText("Se tem o objetivo de atingir o peso normal da tabela, é necessario perder "
+						+ calculadoraIMC.getPesoParaSerPerdido(indivFem) + " kg.");
+
 			}
 
 		}
