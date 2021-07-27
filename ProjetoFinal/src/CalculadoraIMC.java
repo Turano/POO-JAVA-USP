@@ -22,12 +22,12 @@ public class CalculadoraIMC implements IMC {
 		double faltaParaPesoSaudavel = this.getFaltaParaPesoSaudavel(individuo);
 		String mensagemDeSugestao = "";
 		if (faltaParaPesoSaudavel < 0) {
-			mensagemDeSugestao += "Você está abaixo do peso, seria interessante que ganhasse "+String.format("%.0f", Math.abs(faltaParaPesoSaudavel))+" quilos para manter sua saúde.\n";
+			mensagemDeSugestao += "Voce esta abaixo do peso, seria interessante que ganhasse "+String.format("%.0f", Math.abs(faltaParaPesoSaudavel))+" quilos para manter sua saude.\n";
 		} else if (faltaParaPesoSaudavel == 0) {
-			mensagemDeSugestao += "Você já está em seu peso ideal, continue assim para o bem da sua saúde.";
+			mensagemDeSugestao += "Voce ja esta em seu peso ideal, continue assim para o bem da sua saude.";
 		} else {
-			mensagemDeSugestao += "Você está acima do seu peso, por favor repense seus hábitos para ter uma vida mais saudável.\n";
-			mensagemDeSugestao += "Seria necessário perder no mínimo " + String.format("%.0f", (faltaParaPesoSaudavel)) + " quilo(s).";
+			mensagemDeSugestao += "Voce esta acima do seu peso, por favor repense seus habitos para ter uma vida mais saudavel.\n";
+			mensagemDeSugestao += "Seria necessario perder no minimo " + String.format("%.0f", (faltaParaPesoSaudavel)) + " quilo(s).";
 		}
 		return mensagemDeSugestao;
 	}
