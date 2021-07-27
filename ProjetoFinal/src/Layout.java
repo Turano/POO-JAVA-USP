@@ -22,15 +22,13 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 	private JLabel label;
 	private JLabel nomeLabel, objetivoLabel, idadeLabel, alturaLabel, pesoLabel, sexoLabel, freqAtivFisicaLabel;
 	private JTextField nomeField, idadeField, alturaField, pesoField;
-//	private JRadioButton radioButtonEmagrecimento, radioButtonGanhoPeso, radioButtonGanhoMassaMuscular,
-//			radioButtonSaude;
 	private JButton button, button1;
 	private JComboBox<String> sexoDropDown, freqAtivFisicaDropDown, objetivoDropDown;
 
 	private JPanel resultadosPanel, titlePanel, IMCPanel, consCalBasPanel, consCalDiarPanel, ingestaoPanel;
-	private JLabel resultadosTituloLabel, calcIMCTitleLabel, calcIMCTextLabel, calcIMCText2Label, consCalBasTitleLabel,
-			consCalBasTextLabel, consCalDiarTitleLabel, consCalDiarTextLabel, ingestaoTitleLabel, ingestaoTextLabel,
-			consumoTitleLabel, consumoTextLabel, consumoTextSmallLable;
+	private JLabel resultadosTituloLabel, calcIMCTitleLabel, calcIMCTextLabel, calcIMCSintomasTextLabel,
+			calcIMCText2Label, consCalBasTitleLabel, consCalBasTextLabel, consCalDiarTitleLabel, consCalDiarTextLabel,
+			ingestaoTitleLabel, ingestaoTextLabel, consumoTitleLabel, consumoTextLabel, consumoTextSmallLable;
 
 	public Layout() {
 		super("e-Saude");
@@ -56,7 +54,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 		resultadosPanel = new JPanel(new GridLayout(5, 1));
 		titlePanel = new JPanel(new FlowLayout());
-		IMCPanel = new JPanel(new GridLayout(4, 1));
+		IMCPanel = new JPanel(new GridLayout(5, 1));
 		consCalBasPanel = new JPanel(new GridLayout(1, 2));
 		consCalDiarPanel = new JPanel(new GridLayout(3, 1));
 		ingestaoPanel = new JPanel(new GridLayout(3, 2));
@@ -71,10 +69,10 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		idadeLabel = new JLabel("Digite sua idade");
 		idadeField = new JTextField();
 
-		alturaLabel = new JLabel("Digite sua altura:");
+		alturaLabel = new JLabel("Digite sua altura (em cm):");
 		alturaField = new JTextField();
 
-		pesoLabel = new JLabel("Digite seu peso:");
+		pesoLabel = new JLabel("Digite seu peso (em kg):");
 		pesoField = new JTextField();
 
 		sexoLabel = new JLabel("Selecione o seu sexo:");
@@ -178,7 +176,8 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 		calcIMCTitleLabel = new JLabel("Calculadora IMC");
 		calcIMCTextLabel = new JLabel("Aqui ira aparecer o seu resultado!");
-		calcIMCText2Label = new JLabel("Aqui ira aparecer o seu resultado 2!");
+		calcIMCSintomasTextLabel = new JLabel("");
+		calcIMCText2Label = new JLabel("");
 
 		consCalBasTitleLabel = new JLabel("Cálculo do seu consumo calórico basal:");
 		consCalBasTextLabel = new JLabel("___ Kcal");
@@ -198,6 +197,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		IMCPanel.add(titlePanel);
 		IMCPanel.add(calcIMCTitleLabel);
 		IMCPanel.add(calcIMCTextLabel);
+		IMCPanel.add(calcIMCSintomasTextLabel);
 		IMCPanel.add(calcIMCText2Label);
 		resultadosPanel.add(IMCPanel);
 
@@ -265,8 +265,14 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 				calcIMCTextLabel.setText("Seu IMC é " + String.format("%.2f", calculadoraIMC.getIMC(indivMasc))
 						+ ", assim sendo classificado como " + calculadoraIMC.getHealthCondition(indivMasc));
 
+				calcIMCSintomasTextLabel.setText(calculadoraIMC.getHealthCondition(indivMasc).getSintomas());
+
 				calcIMCText2Label.setText("Se tem o objetivo de atingir o peso normal da tabela, é necessario perder "
-						+ calculadoraIMC.getPesoParaSerPerdido(indivMasc) + " kg.");
+						+ String.format("%.2f", calculadoraIMC.getPesoParaSerPerdido(indivMasc)) + " kg.");
+
+				consCalBasTextLabel.setText(String.format("%.2f", calculadoraMetabolica.getTMB(indivMasc)) + " Kcal");
+
+				consCalDiarTextLabel.setText(String.format("%.2f", calculadoraMetabolica.getNDC(indivMasc)) + " Kcal");
 
 			} else if (sexo.equals("Feminino")) {
 
@@ -275,9 +281,14 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 				calcIMCTextLabel.setText("Seu IMC é " + String.format("%.2f", calculadoraIMC.getIMC(indivFem))
 						+ ", assim sendo classificado como " + calculadoraIMC.getHealthCondition(indivFem));
 
-				calcIMCText2Label.setText("Se tem o objetivo de atingir o peso normal da tabela, é necessario perder "
-						+ calculadoraIMC.getPesoParaSerPerdido(indivFem) + " kg.");
+				calcIMCSintomasTextLabel.setText(calculadoraIMC.getHealthCondition(indivFem).getSintomas());
 
+				calcIMCText2Label.setText("Se tem o objetivo de atingir o peso normal da tabela, é necessario perder "
+						+ String.format("%.2f", calculadoraIMC.getPesoParaSerPerdido(indivFem)) + " kg.");
+
+				consCalBasTextLabel.setText(String.format("%.2f", calculadoraMetabolica.getTMB(indivFem)) + " Kcal");
+
+				consCalDiarTextLabel.setText(String.format("%.2f", calculadoraMetabolica.getNDC(indivFem)) + " Kcal");
 			}
 
 		}
