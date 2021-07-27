@@ -23,7 +23,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 	private JLabel label;
 	private JLabel nomeLabel, objetivoLabel, idadeLabel, alturaLabel, pesoLabel, sexoLabel, freqAtivFisicaLabel;
 	private JTextField nomeField, idadeField, alturaField, pesoField;
-	private JButton button, button1;
+	private JButton button;
 	private JComboBox<String> sexoDropDown, freqAtivFisicaDropDown, objetivoDropDown;
 
 	private JPanel resultadosPanel, titlePanel, IMCPanel, consCalBasPanel, consCalDiarPanel, ingestaoPanel;
@@ -35,6 +35,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		super("e-Saude");
 		panel = (JPanel) this.getContentPane();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
 		buttonsPanel = (JPanel) this.getContentPane();
 
 		topPanel = new JPanel(new FlowLayout());
@@ -61,14 +62,14 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		ingestaoPanel = new JPanel(new GridLayout(3, 2));
 
 		label = new JLabel("Bem vindo ao app do e-Saude");
-		label.setFont(new Font("Roboto", Font.PLAIN, 30));
+		label.setFont(new Font("Roboto", Font.PLAIN, 25));
 
 		// ----------------- lado esquerdo ----------------------------------
 
 		nomeLabel = new JLabel("Digite seu nome:");
 		nomeField = new JTextField();
 
-		idadeLabel = new JLabel("Digite sua idade");
+		idadeLabel = new JLabel("Digite sua idade:");
 
 //		NumberFormat format = NumberFormat.getInstance();
 //		format.setGroupingUsed(false);
@@ -90,12 +91,12 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		sexoDropDown.addItem("Masculino");
 		sexoDropDown.addItem("Feminino");
 
-		freqAtivFisicaLabel = new JLabel("Frequência de atividade física:");
+		freqAtivFisicaLabel = new JLabel("Frequencia de atividade fisica:");
 		freqAtivFisicaDropDown = new JComboBox<String>();
-		freqAtivFisicaDropDown.addItem("Escolha uma frequência semanal");
-		freqAtivFisicaDropDown.addItem("Menos de 3 sessões");
-		freqAtivFisicaDropDown.addItem("3 a 5 sessões");
-		freqAtivFisicaDropDown.addItem("Mais de 5 sessões");
+		freqAtivFisicaDropDown.addItem("Escolha uma frequencia semanal");
+		freqAtivFisicaDropDown.addItem("Menos de 3 sessoes");
+		freqAtivFisicaDropDown.addItem("3 a 5 sessoes");
+		freqAtivFisicaDropDown.addItem("Mais de 5 sessoes");
 
 		objetivoLabel = new JLabel("Objetivo");
 		objetivoDropDown = new JComboBox<String>();
@@ -105,7 +106,6 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		objetivoDropDown.addItem("Saude");
 
 		button = new JButton("Confirma");
-		button1 = new JButton("Limpar");
 
 		// panel
 		topPanel.add(label);
@@ -170,13 +170,10 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 		// buttonsPanel
 		buttonsPanel.add(button);
-		buttonsPanel.add(button1);
 		esqPanel.add(buttonsPanel);
 
 		button.addActionListener(this);
 		button.setActionCommand("confirma");
-		button1.addActionListener(this);
-		button1.setActionCommand("limpa");
 
 		// ----------------- lado direito ----------------------------------
 
@@ -185,22 +182,22 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		resultadosTituloLabel = new JLabel("Resultados");
 
 		calcIMCTitleLabel = new JLabel("Calculadora IMC");
-		calcIMCTextLabel = new JLabel("Aqui ira aparecer o seu resultado!");
+		calcIMCTextLabel = new JLabel("Aqui aparecera o seu resultado!");
 		calcIMCSintomasTextLabel = new JLabel("");
 		calcIMCText2Label = new JLabel("");
 
-		consCalBasTitleLabel = new JLabel("Cálculo do seu consumo calórico basal:");
+		consCalBasTitleLabel = new JLabel("Calculo do seu consumo calorico basal:");
 		consCalBasTextLabel = new JLabel("___ Kcal");
 
-		consCalDiarTitleLabel = new JLabel("Cálculo do seu consumo calórico diário (basal + atividades físicas):");
+		consCalDiarTitleLabel = new JLabel("Calculo do seu consumo calorico diario (basal + atividades fisicas):");
 		consCalDiarTextLabel = new JLabel("___ Kcal");
 
-		ingestaoTitleLabel = new JLabel("META de ingestão de hoje:");
+		ingestaoTitleLabel = new JLabel("META de ingestao de hoje:");
 		ingestaoTextLabel = new JLabel("___ Kcal");
 
 		consumoTitleLabel = new JLabel("Seu consumo hoje:");
 		consumoTextLabel = new JLabel("___ Kcal");
-		consumoTextSmallLable = new JLabel("Aqui aparecerá seu resultado!");
+		consumoTextSmallLable = new JLabel("Aqui aparecera o seu resultado!");
 
 		// titlePanel + IMCPanel
 		titlePanel.add(resultadosTituloLabel);
@@ -251,11 +248,11 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 			NivelDeAtividadeFisica nivelAtivFis = null;
 
-			if (freqAtivFisica.equals("Menos de 3 sessões")) {
+			if (freqAtivFisica.equals("Menos de 3 sessoes")) {
 				nivelAtivFis = NivelDeAtividadeFisica.LEVE;
-			} else if (freqAtivFisica.equals("3 a 5 sessões")) {
+			} else if (freqAtivFisica.equals("3 a 5 sessoes")) {
 				nivelAtivFis = NivelDeAtividadeFisica.MODERADA;
-			} else if (freqAtivFisica.equals("Mais de 5 sessões")) {
+			} else if (freqAtivFisica.equals("Mais de 5 sessoes")) {
 				nivelAtivFis = NivelDeAtividadeFisica.INTENSA;
 			}
 
@@ -272,13 +269,15 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 				IndividuoMasculino indivMasc = new IndividuoMasculino(peso, altura, idade, nivelAtivFis, objetivo);
 
-				calcIMCTextLabel.setText("Seu IMC é " + String.format("%.2f", calculadoraIMC.getIMC(indivMasc))
-						+ ", assim sendo classificado como " + calculadoraIMC.getHealthCondition(indivMasc));
+				calcIMCTextLabel.setText("Seu IMC tem valor " + String.format("%.2f", calculadoraIMC.getIMC(indivMasc))
+						+ ", assim sendo classificado como: "
+						+ calculadoraIMC.getHealthCondition(indivMasc).getTituloDaClassificacao());
 
-				calcIMCSintomasTextLabel.setText(calculadoraIMC.getHealthCondition(indivMasc).getSintomas());
+				calcIMCSintomasTextLabel.setText((String.format("<html><p>%s<br/></p></html>",
+						calculadoraIMC.getHealthCondition(indivMasc).getSintomas())));
 
-				calcIMCText2Label.setText("Se tem o objetivo de atingir o peso normal da tabela, é necessario perder "
-						+ String.format("%.2f", calculadoraIMC.getPesoParaSerPerdido(indivMasc)) + " kg.");
+				calcIMCText2Label.setText(
+						String.format("<html><p>%s<br/></p></html>", calculadoraIMC.getSugestaoDePeso(indivMasc)));
 
 				consCalBasTextLabel.setText(String.format("%.2f", calculadoraMetabolica.getTMB(indivMasc)) + " Kcal");
 
@@ -288,13 +287,15 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 				IndividuoFeminino indivFem = new IndividuoFeminino(peso, altura, idade, nivelAtivFis, objetivo);
 
-				calcIMCTextLabel.setText("Seu IMC é " + String.format("%.2f", calculadoraIMC.getIMC(indivFem))
-						+ ", assim sendo classificado como " + calculadoraIMC.getHealthCondition(indivFem));
+				calcIMCTextLabel.setText("Seu IMC tem valor " + String.format("%.2f", calculadoraIMC.getIMC(indivFem))
+						+ ", assim sendo classificado como: "
+						+ calculadoraIMC.getHealthCondition(indivFem).getTituloDaClassificacao());
 
-				calcIMCSintomasTextLabel.setText(calculadoraIMC.getHealthCondition(indivFem).getSintomas());
+				calcIMCSintomasTextLabel.setText((String.format("<html><p>%s<br/></p></html>",
+						calculadoraIMC.getHealthCondition(indivFem).getSintomas())));
 
-				calcIMCText2Label.setText("Se tem o objetivo de atingir o peso normal da tabela, é necessario perder "
-						+ String.format("%.2f", calculadoraIMC.getPesoParaSerPerdido(indivFem)) + " kg.");
+				calcIMCText2Label.setText(
+						String.format("<html><p>%s<br/></p></html>", calculadoraIMC.getSugestaoDePeso(indivFem)));
 
 				consCalBasTextLabel.setText(String.format("%.2f", calculadoraMetabolica.getTMB(indivFem)) + " Kcal");
 
@@ -302,14 +303,6 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 			}
 
 		}
-
-//		System.out.println(calculadoraIMC.getIMC(i1));
-//		System.out.println(calculadoraIMC.getHealthCondition(i2));
-//		System.out.println(NivelDeAtividadeFisica.LEVE);
-//		System.out.println(NivelDeAtividadeFisica.LEVE.getFatorDeAtividade()[0]);
-//		System.out.println(NivelDeAtividadeFisica.LEVE.getFatorDeAtividade()[1]);
-//		System.out.println(calculadoraMetabolica.getTMB(i1));
-//		System.out.println(calculadoraMetabolica.getNDC(i2));
 	}
 
 }
