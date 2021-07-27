@@ -82,7 +82,6 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		sexoDropDown = new JComboBox<String>();
 		sexoDropDown.addItem("Masculino");
 		sexoDropDown.addItem("Feminino");
-		sexoDropDown.addItem("Outro");
 
 		freqAtivFisicaLabel = new JLabel("Frequência de atividade física:");
 		freqAtivFisicaDropDown = new JComboBox<String>();
@@ -224,33 +223,6 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		boolean preenchido;
-		if ("confirma".equals(e.getActionCommand())) {
-			String cor = nomeField.getText();
-//			if (radioButtonTrue.isSelected()) {
-			preenchido = true;
-//			} else {
-//				preenchido = false;
-//			}
-			String valorString = idadeField.getText();
-			int raio = Integer.parseInt(valorString);
-
-//			Circulo circulo = new Circulo(cor, preenchido, raio);
-//			double areaCirculo = circulo.calculaArea(circulo);
-			double areaCirculo = 10;
-
-			if (preenchido == true) {
-				label.setText("Circulo de cor " + cor + " e de area " + areaCirculo);
-			} else {
-				label.setText("Circulo de area " + areaCirculo);
-			}
-
-		} else if ("limpa".equals(e.getActionCommand())) {
-			nomeField.setText("");
-			label.setText("Bem vindo");
-
-		}
-
 		CalculadoraIMC calculadoraIMC = new CalculadoraIMC();
 		CalculadoraMetabolica calculadoraMetabolica = new CalculadoraMetabolica();
 
@@ -258,17 +230,46 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 //		IndividuoFeminino i2 = new IndividuoFeminino(72, 171, 21, NivelDeAtividadeFisica.MODERADA);
 
 		if ("confirma".equals(e.getActionCommand())) {
+			String nome = nomeField.getText();
 			String pesoString = pesoField.getText();
 			String alturaString = alturaField.getText();
 			String idadeString = idadeField.getText();
+			String selecionado = (String) freqAtivFisicaDropDown.getSelectedItem();
+			String sexo = (String) sexoDropDown.getSelectedItem();
 
 			double peso = Double.parseDouble(pesoString);
 			double altura = Double.parseDouble(alturaString);
 			int idade = Integer.parseInt(idadeString);
 
-			IndividuoMasculino indivMasc = new IndividuoMasculino(peso, altura, idade, NivelDeAtividadeFisica.MODERADA);
-			calcIMCTextLabel.setText("Individuo de idade " + idade + " pesando " + peso + "kg, de altura " + altura
-					+ "cm tem IMC: " + calculadoraIMC.getIMC(indivMasc));
+			NivelDeAtividadeFisica nivelAtivFis = null;
+
+			if (selecionado.equals("Menos de 3 sessões")) {
+				nivelAtivFis = NivelDeAtividadeFisica.LEVE;
+			} else if (selecionado.equals("3 a 5 sessões")) {
+				nivelAtivFis = NivelDeAtividadeFisica.MODERADA;
+			} else if (selecionado.equals("Mais de 5 sessões")) {
+				nivelAtivFis = NivelDeAtividadeFisica.INTENSA;
+			}
+
+			if (sexo.equals("Masculino")) {
+
+				IndividuoMasculino indivMasc = new IndividuoMasculino(peso, altura, idade, nivelAtivFis,
+						Objetivo.EMAGRECIMENTO);
+
+				calcIMCTextLabel.setText(nome + " de idade " + idade + " pesando " + peso + "kg, de altura " + altura
+						+ "cm tem IMC: " + String.format("%.2f", calculadoraIMC.getIMC(indivMasc)) + "\n "
+						+ "nivelAtivFisica: " + nivelAtivFis);
+
+			} else if (sexo.equals("Feminino")) {
+
+				IndividuoFeminino indivFem = new IndividuoFeminino(peso, altura, idade, nivelAtivFis,
+						Objetivo.EMAGRECIMENTO);
+
+				calcIMCTextLabel.setText(nome + " de idade " + idade + " pesando " + peso + "kg, de altura " + altura
+						+ "cm tem IMC: " + String.format("%.2f", calculadoraIMC.getIMC(indivFem)) + "\n "
+						+ "nivelAtivFisica: " + nivelAtivFis);
+
+			}
 
 		}
 
