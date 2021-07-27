@@ -11,7 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
@@ -23,13 +22,13 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 	private JLabel label;
 	private JLabel nomeLabel, objetivoLabel, idadeLabel, alturaLabel, pesoLabel, sexoLabel, freqAtivFisicaLabel;
 	private JTextField nomeField, idadeField, alturaField, pesoField;
-	private JRadioButton radioButtonEmagrecimento, radioButtonGanhoPeso, radioButtonGanhoMassaMuscular,
-			radioButtonSaude;
+//	private JRadioButton radioButtonEmagrecimento, radioButtonGanhoPeso, radioButtonGanhoMassaMuscular,
+//			radioButtonSaude;
 	private JButton button, button1;
-	private JComboBox<String> sexoDropDown, freqAtivFisicaDropDown;
+	private JComboBox<String> sexoDropDown, freqAtivFisicaDropDown, objetivoDropDown;
 
 	private JPanel resultadosPanel, titlePanel, IMCPanel, consCalBasPanel, consCalDiarPanel, ingestaoPanel;
-	private JLabel resultadosTituloLabel, calcIMCTitleLabel, calcIMCTextLabel, consCalBasTitleLabel,
+	private JLabel resultadosTituloLabel, calcIMCTitleLabel, calcIMCTextLabel, calcIMCText2Label, consCalBasTitleLabel,
 			consCalBasTextLabel, consCalDiarTitleLabel, consCalDiarTextLabel, ingestaoTitleLabel, ingestaoTextLabel,
 			consumoTitleLabel, consumoTextLabel, consumoTextSmallLable;
 
@@ -82,19 +81,20 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		sexoDropDown = new JComboBox<String>();
 		sexoDropDown.addItem("Masculino");
 		sexoDropDown.addItem("Feminino");
-		sexoDropDown.addItem("Outro");
 
 		freqAtivFisicaLabel = new JLabel("Frequência de atividade física:");
 		freqAtivFisicaDropDown = new JComboBox<String>();
+		freqAtivFisicaDropDown.addItem("Escolha uma frequência semanal");
 		freqAtivFisicaDropDown.addItem("Menos de 3 sessões");
 		freqAtivFisicaDropDown.addItem("3 a 5 sessões");
 		freqAtivFisicaDropDown.addItem("Mais de 5 sessões");
 
 		objetivoLabel = new JLabel("Objetivo");
-		radioButtonEmagrecimento = new JRadioButton("Emagrecimento", false);
-		radioButtonGanhoPeso = new JRadioButton("Ganho de peso", false);
-		radioButtonGanhoMassaMuscular = new JRadioButton("Ganho de massa muscular", false);
-		radioButtonSaude = new JRadioButton("Saude", false);
+		objetivoDropDown = new JComboBox<String>();
+		objetivoDropDown.addItem("Escolha um objetivo");
+		objetivoDropDown.addItem("Emagrecimento");
+		objetivoDropDown.addItem("Ganho de peso/massa muscular");
+		objetivoDropDown.addItem("Saude");
 
 		button = new JButton("Confirma");
 		button1 = new JButton("Limpar");
@@ -145,10 +145,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 		// objetivoPanel
 		objetivoPanel.add(objetivoLabel);
-		objetivoPanel.add(radioButtonEmagrecimento);
-		objetivoPanel.add(radioButtonGanhoPeso);
-		objetivoPanel.add(radioButtonGanhoMassaMuscular);
-		objetivoPanel.add(radioButtonSaude);
+		objetivoPanel.add(objetivoDropDown);
 		esqPanel.add(objetivoPanel);
 
 		// cadastrarRefeicaoPanel
@@ -181,6 +178,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 		calcIMCTitleLabel = new JLabel("Calculadora IMC");
 		calcIMCTextLabel = new JLabel("Aqui ira aparecer o seu resultado!");
+		calcIMCText2Label = new JLabel("Aqui ira aparecer o seu resultado 2!");
 
 		consCalBasTitleLabel = new JLabel("Cálculo do seu consumo calórico basal:");
 		consCalBasTextLabel = new JLabel("___ Kcal");
@@ -200,6 +198,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		IMCPanel.add(titlePanel);
 		IMCPanel.add(calcIMCTitleLabel);
 		IMCPanel.add(calcIMCTextLabel);
+		IMCPanel.add(calcIMCText2Label);
 		resultadosPanel.add(IMCPanel);
 
 		// consCalBasPanel
@@ -224,51 +223,61 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		boolean preenchido;
-		if ("confirma".equals(e.getActionCommand())) {
-			String cor = nomeField.getText();
-//			if (radioButtonTrue.isSelected()) {
-			preenchido = true;
-//			} else {
-//				preenchido = false;
-//			}
-			String valorString = idadeField.getText();
-			int raio = Integer.parseInt(valorString);
-
-//			Circulo circulo = new Circulo(cor, preenchido, raio);
-//			double areaCirculo = circulo.calculaArea(circulo);
-			double areaCirculo = 10;
-
-			if (preenchido == true) {
-				label.setText("Circulo de cor " + cor + " e de area " + areaCirculo);
-			} else {
-				label.setText("Circulo de area " + areaCirculo);
-			}
-
-		} else if ("limpa".equals(e.getActionCommand())) {
-			nomeField.setText("");
-			label.setText("Bem vindo");
-
-		}
-
 		CalculadoraIMC calculadoraIMC = new CalculadoraIMC();
 		CalculadoraMetabolica calculadoraMetabolica = new CalculadoraMetabolica();
 
-//		IndividuoMasculino i1 = new IndividuoMasculino(72, 171, 21, NivelDeAtividadeFisica.MODERADA);
-//		IndividuoFeminino i2 = new IndividuoFeminino(72, 171, 21, NivelDeAtividadeFisica.MODERADA);
-
 		if ("confirma".equals(e.getActionCommand())) {
+			String nome = nomeField.getText();
 			String pesoString = pesoField.getText();
 			String alturaString = alturaField.getText();
 			String idadeString = idadeField.getText();
+			String sexo = (String) sexoDropDown.getSelectedItem();
+			String freqAtivFisica = (String) freqAtivFisicaDropDown.getSelectedItem();
+			String objetivoSelecionado = (String) objetivoDropDown.getSelectedItem();
 
 			double peso = Double.parseDouble(pesoString);
 			double altura = Double.parseDouble(alturaString);
 			int idade = Integer.parseInt(idadeString);
 
-			IndividuoMasculino indivMasc = new IndividuoMasculino(peso, altura, idade, NivelDeAtividadeFisica.MODERADA);
-			calcIMCTextLabel.setText("Individuo de idade " + idade + " pesando " + peso + "kg, de altura " + altura
-					+ "cm tem IMC: " + calculadoraIMC.getIMC(indivMasc));
+			NivelDeAtividadeFisica nivelAtivFis = null;
+
+			if (freqAtivFisica.equals("Menos de 3 sessões")) {
+				nivelAtivFis = NivelDeAtividadeFisica.LEVE;
+			} else if (freqAtivFisica.equals("3 a 5 sessões")) {
+				nivelAtivFis = NivelDeAtividadeFisica.MODERADA;
+			} else if (freqAtivFisica.equals("Mais de 5 sessões")) {
+				nivelAtivFis = NivelDeAtividadeFisica.INTENSA;
+			}
+
+			Objetivo objetivo = null;
+			if (objetivoSelecionado.equals("Emagrecimento")) {
+				objetivo = Objetivo.EMAGRECIMENTO;
+			} else if (objetivoSelecionado.equals("Ganho de peso/massa muscular")) {
+				objetivo = Objetivo.GANHO_MUSCULAR;
+			} else if (objetivoSelecionado.equals("Saude")) {
+				objetivo = Objetivo.SAUDE;
+			}
+
+			if (sexo.equals("Masculino")) {
+
+				IndividuoMasculino indivMasc = new IndividuoMasculino(peso, altura, idade, nivelAtivFis, objetivo);
+
+				calcIMCTextLabel.setText(nome + " de idade " + idade + " pesando " + peso + "kg, de altura " + altura
+						+ "cm tem IMC: " + String.format("%.2f", calculadoraIMC.getIMC(indivMasc)) + " -> "
+						+ calculadoraIMC.getHealthCondition(indivMasc));
+
+				calcIMCText2Label.setText("nivel Ativ Fisica: " + nivelAtivFis + " e objetivo: " + objetivo);
+
+			} else if (sexo.equals("Feminino")) {
+
+				IndividuoFeminino indivFem = new IndividuoFeminino(peso, altura, idade, nivelAtivFis, objetivo);
+
+				calcIMCTextLabel.setText(nome + " de idade " + idade + " pesando " + peso + "kg, de altura " + altura
+						+ "cm tem IMC: " + String.format("%.2f", calculadoraIMC.getIMC(indivFem)) + " -> "
+						+ calculadoraIMC.getHealthCondition(indivFem));
+
+				calcIMCText2Label.setText("nivel Ativ Fisica: " + nivelAtivFis + " e objetivo: " + objetivo);
+			}
 
 		}
 
