@@ -21,6 +21,26 @@ public class Testar extends Layout {
 		System.out.println(calculadoraIMC.getHealthCondition(i3).getSintomas());
 		System.out.println(calculadoraIMC.getPesoParaSerPerdido(i3));
 		
+		Alimentacao sla = new Alimentacao();
+		
+		sla.addRefeicao(1, 2, 3);
+		
+		System.out.println(sla.getTotalDeCalorias());
+		
+		sla.addRefeicao(3, 2, 1);
+		
+		System.out.println(sla.getTotalDeCalorias());
+		
+		sla.removeRefeicao();
+		
+		sla.removeRefeicao();
+		
+		sla.removeRefeicao();
+		
+		sla.getTotalDeCalorias();
+		
+		System.out.println(sla.getTotalDeCalorias());
+		
 
 		// aqui é o GUI
 		Layout frame = new Layout();
