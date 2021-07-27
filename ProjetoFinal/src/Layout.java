@@ -29,7 +29,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 	private JPanel resultadosPanel, titlePanel, IMCPanel, consCalBasPanel, consCalDiarPanel, ingestaoPanel;
 	private JLabel resultadosTituloLabel, calcIMCTitleLabel, calcIMCTextLabel, calcIMCSintomasTextLabel,
 			calcIMCText2Label, consCalBasTitleLabel, consCalBasTextLabel, consCalDiarTitleLabel, consCalDiarTextLabel,
-			ingestaoTitleLabel, ingestaoTextLabel, consumoTitleLabel, consumoTextLabel, consumoTextSmallLable;
+			ingestaoTitleLabel, ingestaoTextLabel, consumoTitleLabel, consumoTextLabel;
 
 	public Layout() {
 		super("e-Saude");
@@ -58,7 +58,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		titlePanel = new JPanel(new FlowLayout());
 		IMCPanel = new JPanel(new GridLayout(5, 1));
 		consCalBasPanel = new JPanel(new GridLayout(1, 2));
-		consCalDiarPanel = new JPanel(new GridLayout(3, 1));
+		consCalDiarPanel = new JPanel(new GridLayout(1, 1));
 		ingestaoPanel = new JPanel(new GridLayout(3, 2));
 
 		label = new JLabel("Bem vindo ao app do e-Saude");
@@ -93,14 +93,12 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 		freqAtivFisicaLabel = new JLabel("Frequencia de atividade fisica:");
 		freqAtivFisicaDropDown = new JComboBox<String>();
-		freqAtivFisicaDropDown.addItem("Escolha uma frequencia semanal");
 		freqAtivFisicaDropDown.addItem("Menos de 3 sessoes");
 		freqAtivFisicaDropDown.addItem("3 a 5 sessoes");
 		freqAtivFisicaDropDown.addItem("Mais de 5 sessoes");
 
-		objetivoLabel = new JLabel("Objetivo");
+		objetivoLabel = new JLabel("Objetivo:");
 		objetivoDropDown = new JComboBox<String>();
-		objetivoDropDown.addItem("Escolha um objetivo");
 		objetivoDropDown.addItem("Emagrecimento");
 		objetivoDropDown.addItem("Ganho de peso/massa muscular");
 		objetivoDropDown.addItem("Saude");
@@ -120,6 +118,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		// pessoaInfoPanel
 		esqPanel.add(pessoaInfoPanel);
 		dirPanel.add(resultadosPanel);
+		resultadosPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
 		// nomePanel
 		nomePanel.add(nomeLabel);
@@ -195,15 +194,15 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		consCalBasTitleLabel = new JLabel("Calculo do seu consumo calorico basal:");
 		consCalBasTextLabel = new JLabel("___ Kcal");
 
-		consCalDiarTitleLabel = new JLabel("Calculo do seu consumo calorico diario (basal + atividades fisicas):");
+		consCalDiarTitleLabel = new JLabel(
+				"<html><p>Calculo do seu consumo calorico diario (basal + atividades fisicas):</p></html>");
 		consCalDiarTextLabel = new JLabel("___ Kcal");
-
-		ingestaoTitleLabel = new JLabel("META de ingestao de hoje:");
-		ingestaoTextLabel = new JLabel("___ Kcal");
 
 		consumoTitleLabel = new JLabel("Seu consumo hoje:");
 		consumoTextLabel = new JLabel("___ Kcal");
-		consumoTextSmallLable = new JLabel("Aqui aparecera o seu resultado!");
+
+		ingestaoTitleLabel = new JLabel("META de ingestao de hoje:");
+		ingestaoTextLabel = new JLabel("___ Kcal");
 
 		// titlePanel + IMCPanel
 		titlePanel.add(resultadosTituloLabel);
@@ -229,7 +228,6 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		ingestaoPanel.add(ingestaoTextLabel);
 		ingestaoPanel.add(consumoTitleLabel);
 		ingestaoPanel.add(consumoTextLabel);
-		ingestaoPanel.add(consumoTextSmallLable);
 		resultadosPanel.add(ingestaoPanel);
 
 	}
@@ -238,6 +236,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 	public void actionPerformed(ActionEvent e) {
 		CalculadoraIMC calculadoraIMC = new CalculadoraIMC();
 		CalculadoraMetabolica calculadoraMetabolica = new CalculadoraMetabolica();
+		Refeicao refeicao;
 
 		if ("confirma".equals(e.getActionCommand())) {
 			String nome = nomeField.getText();
@@ -247,16 +246,19 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 			String sexo = (String) sexoDropDown.getSelectedItem();
 			String freqAtivFisica = (String) freqAtivFisicaDropDown.getSelectedItem();
 			String objetivoSelecionado = (String) objetivoDropDown.getSelectedItem();
-			String porcaoDeProteina = (String) proteinaField.getText();
-			String porcaoDeCarboidrato = (String) carboidratoField.getText();
-			String porcaoDeGordura = (String) gorduraField.getText();
+			String porcaoDeProteinaString = (String) proteinaField.getText();
+			String porcaoDeCarboidratoString = (String) carboidratoField.getText();
+			String porcaoDeGorduraString = (String) gorduraField.getText();
 
 			double peso = Double.parseDouble(pesoString);
 			double altura = Double.parseDouble(alturaString);
 			int idade = Integer.parseInt(idadeString);
 
-			NivelDeAtividadeFisica nivelAtivFis = null;
+			int porcaoDeProteina = Integer.parseInt(porcaoDeProteinaString);
+			int porcaoDeCarboidrato = Integer.parseInt(porcaoDeCarboidratoString);
+			int porcaoDeGordura = Integer.parseInt(porcaoDeGorduraString);
 
+			NivelDeAtividadeFisica nivelAtivFis = null;
 			if (freqAtivFisica.equals("Menos de 3 sessoes")) {
 				nivelAtivFis = NivelDeAtividadeFisica.LEVE;
 			} else if (freqAtivFisica.equals("3 a 5 sessoes")) {
@@ -273,6 +275,10 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 			} else if (objetivoSelecionado.equals("Saude")) {
 				objetivo = Objetivo.SAUDE;
 			}
+
+			refeicao = new Refeicao(porcaoDeCarboidrato, porcaoDeProteina, porcaoDeGordura);
+
+			consumoTextLabel.setText(String.format("%.2f", refeicao.getCalorias()) + " Kcal");
 
 			if (sexo.equals("Masculino")) {
 
@@ -292,6 +298,18 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 				consCalDiarTextLabel.setText(String.format("%.2f", calculadoraMetabolica.getNDC(indivMasc)) + " Kcal");
 
+				if (refeicao.getCalorias() < calculadoraMetabolica.getNDC(indivMasc)) {
+
+					ingestaoTextLabel.setText("Voce ainda deve consumir "
+							+ String.format("%.2f", (calculadoraMetabolica.getNDC(indivMasc) - refeicao.getCalorias()))
+							+ " Kcal.");
+
+				} else {
+
+					ingestaoTextLabel.setText("Parabens, voce consumiu a quantidade de Kcal necessarias!");
+
+				}
+
 			} else if (sexo.equals("Feminino")) {
 
 				IndividuoFeminino indivFem = new IndividuoFeminino(peso, altura, idade, nivelAtivFis, objetivo);
@@ -309,9 +327,20 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 				consCalBasTextLabel.setText(String.format("%.2f", calculadoraMetabolica.getTMB(indivFem)) + " Kcal");
 
 				consCalDiarTextLabel.setText(String.format("%.2f", calculadoraMetabolica.getNDC(indivFem)) + " Kcal");
-			}
 
-			nomeField.setText("");
+				if (refeicao.getCalorias() < calculadoraMetabolica.getNDC(indivFem)) {
+
+					ingestaoTextLabel.setText("Voce ainda deve consumir "
+							+ String.format("%.2f", (calculadoraMetabolica.getNDC(indivFem) - refeicao.getCalorias()))
+							+ " Kcal.");
+
+				} else {
+
+					ingestaoTextLabel.setText("Parabens, voce consumiu a quantidade de Kcal necessarias!");
+
+				}
+
+			}
 
 		}
 	}

@@ -11,7 +11,7 @@ public interface CadastrarRefeicao {
 	JPanel panelInputsCarboidrato = new JPanel(new GridLayout(1, 2));
 	JPanel panelInputsGordura = new JPanel(new GridLayout(1, 2));
 
-	JLabel labelQuantidade = new JLabel("Quantidade");
+	JLabel labelQuantidade = new JLabel("Quantidade (em g):");
 
 	JLabel labelProteina = new JLabel("Proteina");
 	JTextField proteinaField = new JTextField();
