@@ -1,5 +1,6 @@
+import javax.swing.JFrame;
 
-public class Testar {
+public class Testar extends Layout {
 
 	public static void main(String[] args) {
 		CalculadoraIMC calculadoraIMC = new CalculadoraIMC();
@@ -20,6 +21,14 @@ public class Testar {
 		System.out.println(calculadoraIMC.getHealthCondition(i3).getSintomas());
 		System.out.println(calculadoraIMC.getPesoParaSerPerdido(i3));
 		
+
+		// aqui é o GUI
+		Layout frame = new Layout();
+
+		frame.setSize(1000, 500); // ele ta sendo ignorado pq ta em fullscreen
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // fullscreen
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
 
 }
