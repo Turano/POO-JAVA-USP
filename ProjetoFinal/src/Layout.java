@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,6 +61,7 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		ingestaoPanel = new JPanel(new GridLayout(3, 2));
 
 		label = new JLabel("Bem vindo ao app do e-Saude");
+		label.setFont(new Font("Roboto", Font.PLAIN, 30));
 
 		// ----------------- lado esquerdo ----------------------------------
 
@@ -67,6 +69,14 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		nomeField = new JTextField();
 
 		idadeLabel = new JLabel("Digite sua idade");
+
+//		NumberFormat format = NumberFormat.getInstance();
+//		format.setGroupingUsed(false);
+//		NumberFormatter formatter = new NumberFormatter(format);
+//		
+//		formatter.setValueClass(Integer.class);
+//		formatter.setMaximum(120);
+//		idadeField = new JFormattedTextField(java.text.NumberFormat.getIntegerInstance());
 		idadeField = new JTextField();
 
 		alturaLabel = new JLabel("Digite sua altura (em cm):");
