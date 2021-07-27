@@ -159,14 +159,20 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		// cadastrarRefeicaoPanel
 		esqPanel.add(panelCadastrarRefeicao);
 		panelCadastrarRefeicao.add(panelTitulos);
-		panelCadastrarRefeicao.add(panelInputs);
-		panelCadastrarRefeicao.add(panelInputs1);
-		panelTitulos.add(labelAlimento);
+		panelCadastrarRefeicao.add(panelInputsProteina);
+		panelCadastrarRefeicao.add(panelInputsCarboidrato);
+		panelCadastrarRefeicao.add(panelInputsGordura);
+
 		panelTitulos.add(labelQuantidade);
-		panelInputs.add(inserirAlimento);
-		panelInputs.add(inserirQuantidade);
-		panelInputs1.add(inserirAlimento1);
-		panelInputs1.add(inserirQuantidade1);
+
+		panelInputsProteina.add(labelProteina);
+		panelInputsProteina.add(proteinaField);
+
+		panelInputsCarboidrato.add(labelCarboidrato);
+		panelInputsCarboidrato.add(carboidratoField);
+
+		panelInputsGordura.add(labelGordura);
+		panelInputsGordura.add(gorduraField);
 
 		// buttonsPanel
 		buttonsPanel.add(button);
@@ -241,6 +247,9 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 			String sexo = (String) sexoDropDown.getSelectedItem();
 			String freqAtivFisica = (String) freqAtivFisicaDropDown.getSelectedItem();
 			String objetivoSelecionado = (String) objetivoDropDown.getSelectedItem();
+			String porcaoDeProteina = (String) proteinaField.getText();
+			String porcaoDeCarboidrato = (String) carboidratoField.getText();
+			String porcaoDeGordura = (String) gorduraField.getText();
 
 			double peso = Double.parseDouble(pesoString);
 			double altura = Double.parseDouble(alturaString);
@@ -301,6 +310,8 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 				consCalDiarTextLabel.setText(String.format("%.2f", calculadoraMetabolica.getNDC(indivFem)) + " Kcal");
 			}
+
+			nomeField.setText("");
 
 		}
 	}

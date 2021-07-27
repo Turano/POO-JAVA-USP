@@ -5,18 +5,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public interface CadastrarRefeicao {
-	JPanel panelCadastrarRefeicao = new JPanel(new GridLayout(5, 2));
-	JPanel panelTitulos = new JPanel(new GridLayout(1, 2));
-	JPanel panelInputs = new JPanel(new GridLayout(1, 2));
-	JPanel panelInputs1 = new JPanel(new GridLayout(1, 2));
+	JPanel panelCadastrarRefeicao = new JPanel(new GridLayout(4, 1));
+	JPanel panelTitulos = new JPanel(new GridLayout(1, 1));
+	JPanel panelInputsProteina = new JPanel(new GridLayout(1, 2));
+	JPanel panelInputsCarboidrato = new JPanel(new GridLayout(1, 2));
+	JPanel panelInputsGordura = new JPanel(new GridLayout(1, 2));
 
-	JLabel labelAlimento = new JLabel("Alimento");
 	JLabel labelQuantidade = new JLabel("Quantidade");
 
-	JTextField inserirAlimento = new JTextField();
-	JTextField inserirQuantidade = new JTextField();
+	JLabel labelProteina = new JLabel("Proteina");
+	JTextField proteinaField = new JTextField();
 
-	JTextField inserirAlimento1 = new JTextField();
-	JTextField inserirQuantidade1 = new JTextField();
+	JLabel labelCarboidrato = new JLabel("Carboidrato");
+	JTextField carboidratoField = new JTextField();
+
+	JLabel labelGordura = new JLabel("Gordura");
+	JTextField gorduraField = new JTextField();
 
 }
