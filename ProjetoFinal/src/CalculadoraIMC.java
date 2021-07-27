@@ -3,7 +3,14 @@ public class CalculadoraIMC implements IMC {
 	// Calculo inspirado: https://centrodeobesidadeediabetes.org.br/tudo-sobre-obesidade/calculadora-de-imc/
 	@Override
 	public double getIMC(Individuo individuo) {
-		return (individuo.getPeso()/(individuo.getAltura()*individuo.getAltura()))*10000; //(kg/ m²)
+		return (individuo.getPeso()/(individuo.getAltura()*individuo.getAltura())); //(kg/ m²)
+	}
+	
+	@Override
+	public double getPesoParaSerPerdido(Individuo individuo) {
+		double pesoAtual = individuo.getPeso();
+		double pesoIdeal = 24.9*individuo.getAltura()*individuo.getAltura();
+		return pesoAtual - pesoIdeal;
 	}
 
 	@Override

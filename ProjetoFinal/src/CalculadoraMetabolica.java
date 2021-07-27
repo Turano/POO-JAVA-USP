@@ -16,10 +16,14 @@ public class CalculadoraMetabolica implements Metabolismo {
 	public double getNDC(Individuo individuo) {
 		double tmb = this.getTMB(individuo);
 		double ndc = 0;
+		double fatorDeObjetivoPessoal = individuo.getObjetivoPessoal().getFatorDeOBjetivo();
+
 		if (individuo instanceof IndividuoMasculino) {
-			ndc = tmb*individuo.getNivelDeAtividadeFisica().getFatorDeAtividade()[0];
+			double fatorDeAtividadeFisica = individuo.getNivelDeAtividadeFisica().getFatorDeAtividade()[0];
+			ndc = tmb*fatorDeAtividadeFisica*fatorDeObjetivoPessoal;
 		}else if (individuo instanceof IndividuoFeminino) {
-			ndc = tmb*individuo.getNivelDeAtividadeFisica().getFatorDeAtividade()[1];
+			double fatorDeAtividadeFisica = individuo.getNivelDeAtividadeFisica().getFatorDeAtividade()[1];
+			ndc = tmb*fatorDeAtividadeFisica*fatorDeObjetivoPessoal;
 		}
 		return ndc;
 	}

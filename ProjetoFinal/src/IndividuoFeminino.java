@@ -4,8 +4,13 @@ public class IndividuoFeminino extends Individuo {
 	CalculadoraIMC calculadoraIMC = new CalculadoraIMC();
 	CalculadoraMetabolica calculadoraMetabolica = new CalculadoraMetabolica();
 	
-	public IndividuoFeminino(double peso, double altura, int idade, NivelDeAtividadeFisica nivelDeAtivFis) {
-		super(peso, altura, idade, nivelDeAtivFis);
+	public IndividuoFeminino(
+			double peso, 
+			double altura, 
+			int idade, 
+			NivelDeAtividadeFisica nivelDeAtivFis, 
+			Objetivo objetivoPessoal) {
+		super(peso, altura, idade, nivelDeAtivFis, objetivoPessoal);
 	}
 
 	@Override

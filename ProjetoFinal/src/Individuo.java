@@ -5,13 +5,19 @@ public abstract class Individuo {
 	protected int idade;
 	
 	protected NivelDeAtividadeFisica nivelDeAtividadeFisica;
+	protected Objetivo objetivoPessoal;
 	
-	public Individuo(double peso, double altura, int idade, NivelDeAtividadeFisica nivelDeAtividadeFisica) {
-		super();
+	public Individuo(
+			double peso, 
+			double altura, 
+			int idade, 
+			NivelDeAtividadeFisica nivelDeAtividadeFisica, 
+			Objetivo objetivoPessoal) {
 		this.peso = peso;
-		this.altura = altura;
+		this.altura = altura/100;
 		this.idade = idade;
 		this.nivelDeAtividadeFisica = nivelDeAtividadeFisica;
+		this.objetivoPessoal = objetivoPessoal;
 	}
 
 	public double getPeso() {
@@ -28,6 +34,10 @@ public abstract class Individuo {
 
 	public NivelDeAtividadeFisica getNivelDeAtividadeFisica() {
 		return nivelDeAtividadeFisica;
+	}
+	
+	public Objetivo getObjetivoPessoal() {
+		return objetivoPessoal;
 	}
 	
 	//	Indice de massa corporea
