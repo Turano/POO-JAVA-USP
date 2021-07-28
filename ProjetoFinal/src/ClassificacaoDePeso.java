@@ -2,7 +2,7 @@
 public enum ClassificacaoDePeso {
 	ABAIXO_DO_PESO(new String[] { "Abaixo do peso.", "Se manter em um estado de peso muito baixo pode acarretar sintomas como "
 			+ "queda de cabelo, infertilidade, ausencia menstrual, fadiga, stres e ansiedade"}), 
-	NORMAL(new String[] {"Peso adequado.", "Menor risco de doencas cardaacas e vasculares."}), 
+	NORMAL(new String[] {"Peso adequado.", "Menor risco de doencas cardiacas e vasculares."}), 
 	SOBREPESO(new String[] {"Sobrepeso.", "Estar em sobrepeso pode ocasionar sintomas como fadiga, ma circulacao, varizes"}),
 	OBESIDADE_GRAU1(new String[] {"Obesidade de grau 1.", "O estado de obesidade esta intimimamente associado como fator de risco para doencas como"
 			+ " diabetes, angina, infarto, aterosclerose."}),
