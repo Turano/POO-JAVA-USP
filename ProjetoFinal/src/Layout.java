@@ -50,8 +50,8 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		alturaPanel = new JPanel(new GridLayout(2, 1));
 		pesoPanel = new JPanel(new GridLayout(2, 1));
 		sexoPanel = new JPanel(new GridLayout(2, 1));
-		freqAtivFisicaPanel = new JPanel(new GridLayout(2, 1));
-		objetivoPanel = new JPanel(new GridLayout(5, 1));
+		freqAtivFisicaPanel = new JPanel(new GridLayout(3, 1));
+		objetivoPanel = new JPanel(new GridLayout(3, 1));
 		buttonsPanel = new JPanel(new FlowLayout());
 
 		resultadosPanel = new JPanel(new GridLayout(5, 1));
@@ -198,11 +198,11 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 				"<html><p>Calculo do seu consumo calorico diario (basal + atividades fisicas):</p></html>");
 		consCalDiarTextLabel = new JLabel("___ Kcal");
 
+		ingestaoTitleLabel = new JLabel("Meta de ingestao de hoje:");
+		ingestaoTextLabel = new JLabel("___ Kcal");
+
 		consumoTitleLabel = new JLabel("Seu consumo hoje:");
 		consumoTextLabel = new JLabel("___ Kcal");
-
-		ingestaoTitleLabel = new JLabel("META de ingestao de hoje:");
-		ingestaoTextLabel = new JLabel("___ Kcal");
 
 		// titlePanel + IMCPanel
 		titlePanel.add(resultadosTituloLabel);
@@ -224,10 +224,10 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		resultadosPanel.add(consCalDiarPanel);
 
 		// ingestaoPanel
-		ingestaoPanel.add(ingestaoTitleLabel);
-		ingestaoPanel.add(ingestaoTextLabel);
 		ingestaoPanel.add(consumoTitleLabel);
 		ingestaoPanel.add(consumoTextLabel);
+		ingestaoPanel.add(ingestaoTitleLabel);
+		ingestaoPanel.add(ingestaoTextLabel);
 		resultadosPanel.add(ingestaoPanel);
 
 	}
@@ -300,13 +300,14 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 				if (refeicao.getCalorias() < calculadoraMetabolica.getNDC(indivMasc)) {
 
-					ingestaoTextLabel.setText("Voce ainda deve consumir "
+					ingestaoTextLabel.setText("<html><p>Voce ainda deve consumir "
 							+ String.format("%.2f", (calculadoraMetabolica.getNDC(indivMasc) - refeicao.getCalorias()))
-							+ " Kcal.");
+							+ " Kcal.</p></html>");
 
 				} else {
 
-					ingestaoTextLabel.setText("Parabens, voce consumiu a quantidade de Kcal necessarias!");
+					ingestaoTextLabel.setText(
+							"<html><p>Parabens, voce consumiu a quantidade de calorias necessarias!<br/></p></html>");
 
 				}
 
@@ -330,13 +331,14 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 
 				if (refeicao.getCalorias() < calculadoraMetabolica.getNDC(indivFem)) {
 
-					ingestaoTextLabel.setText("Voce ainda deve consumir "
+					ingestaoTextLabel.setText("<html><p>Voce ainda deve consumir "
 							+ String.format("%.2f", (calculadoraMetabolica.getNDC(indivFem) - refeicao.getCalorias()))
-							+ " Kcal.");
+							+ " Kcal.</p></html>");
 
 				} else {
 
-					ingestaoTextLabel.setText("Parabens, voce consumiu a quantidade de Kcal necessarias!");
+					ingestaoTextLabel.setText(
+							"<html><p>Parabens, voce consumiu a quantidade de calorias necessarias!<br/></p></html>");
 
 				}
 

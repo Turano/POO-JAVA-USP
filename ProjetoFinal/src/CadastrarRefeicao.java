@@ -11,15 +11,15 @@ public interface CadastrarRefeicao {
 	JPanel panelInputsCarboidrato = new JPanel(new GridLayout(1, 2));
 	JPanel panelInputsGordura = new JPanel(new GridLayout(1, 2));
 
-	JLabel labelQuantidade = new JLabel("Quantidade (em g):");
+	JLabel labelQuantidade = new JLabel("Refeicao diaria - Coloque a quantidade (em g):");
 
-	JLabel labelProteina = new JLabel("Proteina");
+	JLabel labelProteina = new JLabel("Proteinas:");
 	JTextField proteinaField = new JTextField();
 
-	JLabel labelCarboidrato = new JLabel("Carboidrato");
+	JLabel labelCarboidrato = new JLabel("Carboidratos:");
 	JTextField carboidratoField = new JTextField();
 
-	JLabel labelGordura = new JLabel("Gordura");
+	JLabel labelGordura = new JLabel("Gorduras:");
 	JTextField gorduraField = new JTextField();
 
 }
