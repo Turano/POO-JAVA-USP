@@ -15,13 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-public class Layout extends JFrame implements ActionListener, CadastrarRefeicao {
+public class Layout extends JFrame implements ActionListener {
 
 	private JPanel panel, buttonsPanel, objetivoPanel, esqPanel, dirPanel, topPanel, contentPanel, pessoaInfoPanel,
-			nomePanel, idadePanel, alturaPanel, pesoPanel, sexoPanel, freqAtivFisicaPanel;
-	private JLabel label;
-	private JLabel nomeLabel, objetivoLabel, idadeLabel, alturaLabel, pesoLabel, sexoLabel, freqAtivFisicaLabel;
-	private JTextField nomeField, idadeField, alturaField, pesoField;
+			nomePanel, idadePanel, alturaPanel, pesoPanel, sexoPanel, freqAtivFisicaPanel, panelCadastrarRefeicao,
+			panelTitulos, panelInputsProteina, panelInputsCarboidrato, panelInputsGordura;
+	private JLabel label, nomeLabel, objetivoLabel, idadeLabel, alturaLabel, pesoLabel, sexoLabel, freqAtivFisicaLabel,
+			labelQuantidade, labelProteina, labelCarboidrato, labelGordura;
+	private JTextField nomeField, idadeField, alturaField, pesoField, proteinaField, carboidratoField, gorduraField;
 	private JButton button;
 	private JComboBox<String> sexoDropDown, freqAtivFisicaDropDown, objetivoDropDown;
 
@@ -56,50 +57,60 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		resultadosPanel = new JPanel(new GridLayout(5, 1));
 		titlePanel = new JPanel(new FlowLayout());
 		IMCPanel = new JPanel(new GridLayout(5, 1));
-		consCalBasPanel = new JPanel(new GridLayout(1, 2));
+		consCalBasPanel = new JPanel(new GridLayout(1, 1));
 		consCalDiarPanel = new JPanel(new GridLayout(1, 1));
 		ingestaoPanel = new JPanel(new GridLayout(3, 2));
 
+		panelCadastrarRefeicao = new JPanel(new GridLayout(4, 1));
+		panelTitulos = new JPanel(new GridLayout(1, 1));
+		panelInputsProteina = new JPanel(new GridLayout(1, 2));
+		panelInputsCarboidrato = new JPanel(new GridLayout(1, 2));
+		panelInputsGordura = new JPanel(new GridLayout(1, 2));
+
 		label = new JLabel("Bem vindo ao app do e-Saude");
-		label.setFont(new Font("Roboto", Font.PLAIN, 25));
+		label.setFont(new Font("Roboto", Font.PLAIN, 18));
 
 		// ----------------- lado esquerdo ----------------------------------
 
 		nomeLabel = new JLabel("Digite seu nome:");
-		nomeLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		nomeField = new JTextField();
 
 		idadeLabel = new JLabel("Digite sua idade:");
-		idadeLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		idadeField = new JTextField();
 
 		alturaLabel = new JLabel("Digite sua altura (em cm):");
-		alturaLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		alturaField = new JTextField();
 
 		pesoLabel = new JLabel("Digite seu peso (em kg):");
-		pesoLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		pesoField = new JTextField();
 
 		sexoLabel = new JLabel("Selecione o seu sexo:");
-		sexoLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		sexoDropDown = new JComboBox<String>();
 		sexoDropDown.addItem("Masculino");
 		sexoDropDown.addItem("Feminino");
 
 		freqAtivFisicaLabel = new JLabel("Frequencia de atividade fisica:");
-		freqAtivFisicaLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		freqAtivFisicaDropDown = new JComboBox<String>();
 		freqAtivFisicaDropDown.addItem("Menos de 3 sessoes");
 		freqAtivFisicaDropDown.addItem("3 a 5 sessoes");
 		freqAtivFisicaDropDown.addItem("Mais de 5 sessoes");
 
 		objetivoLabel = new JLabel("Objetivo:");
-		objetivoLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		objetivoDropDown = new JComboBox<String>();
 		objetivoDropDown.addItem("Emagrecimento");
 		objetivoDropDown.addItem("Ganho de peso/massa muscular");
 		objetivoDropDown.addItem("Saude");
+
+		labelQuantidade = new JLabel("Refeicao diaria - Coloque a quantidade (em g):");
+
+		labelProteina = new JLabel("Proteinas:");
+		proteinaField = new JTextField();
+
+		labelCarboidrato = new JLabel("Carboidratos:");
+		carboidratoField = new JTextField();
+
+		labelGordura = new JLabel("Gorduras:");
+		gorduraField = new JTextField();
 
 		button = new JButton("Confirma");
 
@@ -160,18 +171,14 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		panelCadastrarRefeicao.add(panelInputsCarboidrato);
 		panelCadastrarRefeicao.add(panelInputsGordura);
 
-		labelQuantidade.setFont(new Font("Roboto", Font.PLAIN, 14));
 		panelTitulos.add(labelQuantidade);
 
-		labelProteina.setFont(new Font("Roboto", Font.PLAIN, 14));
 		panelInputsProteina.add(labelProteina);
 		panelInputsProteina.add(proteinaField);
 
-		labelCarboidrato.setFont(new Font("Roboto", Font.PLAIN, 14));
 		panelInputsCarboidrato.add(labelCarboidrato);
 		panelInputsCarboidrato.add(carboidratoField);
 
-		labelGordura.setFont(new Font("Roboto", Font.PLAIN, 14));
 		panelInputsGordura.add(labelGordura);
 		panelInputsGordura.add(gorduraField);
 
@@ -187,37 +194,26 @@ public class Layout extends JFrame implements ActionListener, CadastrarRefeicao 
 		dirPanel.setBorder(new LineBorder(Color.gray, 4, true));
 
 		resultadosTituloLabel = new JLabel("Resultados");
-		resultadosTituloLabel.setFont(new Font("Roboto", Font.PLAIN, 22));
+		resultadosTituloLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
 
 		calcIMCTitleLabel = new JLabel("Calculadora IMC");
-		calcIMCTitleLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+		calcIMCTitleLabel.setFont(new Font("Roboto", Font.BOLD, 14));
 		calcIMCTextLabel = new JLabel("Aqui aparecera o seu resultado!");
-		calcIMCTextLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		calcIMCSintomasTextLabel = new JLabel("");
-		calcIMCSintomasTextLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		calcIMCText2Label = new JLabel("");
-		calcIMCText2Label.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		consCalBasTitleLabel = new JLabel("Calculo do seu consumo calorico basal:");
-		consCalBasTitleLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		consCalBasTextLabel = new JLabel("___ Kcal");
-		consCalBasTextLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		consCalDiarTitleLabel = new JLabel(
 				"<html><p>Calculo do seu consumo calorico diario (basal + atividades fisicas):</p></html>");
-		consCalDiarTitleLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		consCalDiarTextLabel = new JLabel("___ Kcal");
-		consCalDiarTextLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		ingestaoTitleLabel = new JLabel("Meta de ingestao de hoje:");
-		ingestaoTitleLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		ingestaoTextLabel = new JLabel("___ Kcal");
-		ingestaoTextLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		consumoTitleLabel = new JLabel("Seu consumo hoje:");
-		consumoTitleLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		consumoTextLabel = new JLabel("___ Kcal");
-		consumoTextLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 
 		// titlePanel + IMCPanel
 		titlePanel.add(resultadosTituloLabel);
