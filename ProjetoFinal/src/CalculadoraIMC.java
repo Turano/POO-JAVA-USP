@@ -7,12 +7,31 @@ public class CalculadoraIMC implements IMC {
 	}
 	
 	@Override
-	public double getPesoParaSerPerdido(Individuo individuo) {
+	public double getFaltaParaPesoSaudavel(Individuo individuo) {
+		double imc = this.getIMC(individuo);
 		double pesoAtual = individuo.getPeso();
 		double pesoIdeal = 24.9*individuo.getAltura()*individuo.getAltura();
+		if (imc >= 18.5 && imc < 24.9) {
+			return 0;
+		}
 		return pesoAtual - pesoIdeal;
 	}
-
+	
+	@Override
+	public String getSugestaoDePeso(Individuo individuo) {
+		double faltaParaPesoSaudavel = this.getFaltaParaPesoSaudavel(individuo);
+		String mensagemDeSugestao = "";
+		if (faltaParaPesoSaudavel < 0) {
+			mensagemDeSugestao += "Voce esta abaixo do peso, seria interessante que ganhasse "+String.format("%.0f", Math.abs(faltaParaPesoSaudavel))+" quilos para manter sua saude.\n";
+		} else if (faltaParaPesoSaudavel == 0) {
+			mensagemDeSugestao += "Voce ja esta em seu peso ideal, continue assim para o bem da sua saude.";
+		} else {
+			mensagemDeSugestao += "Voce esta acima do seu peso, por favor repense seus habitos para ter uma vida mais saudavel.\n";
+			mensagemDeSugestao += "Seria necessario perder no minimo " + String.format("%.0f", (faltaParaPesoSaudavel)) + " quilo(s).";
+		}
+		return mensagemDeSugestao;
+	}
+	
 	@Override
 	public ClassificacaoDePeso getHealthCondition(Individuo individuo) {
 		double imc_atual = this.getIMC(individuo);
